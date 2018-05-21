@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/jogo_dos_jarros.dir/main.cpp.o"
   "CMakeFiles/jogo_dos_jarros.dir/Estado.cpp.o"
+  "CMakeFiles/jogo_dos_jarros.dir/Buscas.cpp.o"
   "jogo_dos_jarros.pdb"
   "jogo_dos_jarros"
 )

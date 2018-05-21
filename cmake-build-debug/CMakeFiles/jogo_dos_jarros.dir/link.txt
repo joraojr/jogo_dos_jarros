@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/jogo_dos_jarros.dir/main.cpp.o CMakeFiles/jogo_dos_jarros.dir/Estado.cpp.o  -o jogo_dos_jarros 
+/usr/bin/c++  -g   CMakeFiles/jogo_dos_jarros.dir/main.cpp.o CMakeFiles/jogo_dos_jarros.dir/Estado.cpp.o CMakeFiles/jogo_dos_jarros.dir/Buscas.cpp.o  -o jogo_dos_jarros 

@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Buscas.cpp" "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-build-debug/CMakeFiles/jogo_dos_jarros.dir/Buscas.cpp.o"
   "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Estado.cpp" "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-build-debug/CMakeFiles/jogo_dos_jarros.dir/Estado.cpp.o"
   "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/main.cpp" "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-build-debug/CMakeFiles/jogo_dos_jarros.dir/main.cpp.o"
   )

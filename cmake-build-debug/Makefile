@@ -123,6 +123,33 @@ jogo_dos_jarros/fast:
 	$(MAKE) -f CMakeFiles/jogo_dos_jarros.dir/build.make CMakeFiles/jogo_dos_jarros.dir/build
 .PHONY : jogo_dos_jarros/fast
 
+Buscas.o: Buscas.cpp.o
+
+.PHONY : Buscas.o
+
+# target to build an object file
+Buscas.cpp.o:
+	$(MAKE) -f CMakeFiles/jogo_dos_jarros.dir/build.make CMakeFiles/jogo_dos_jarros.dir/Buscas.cpp.o
+.PHONY : Buscas.cpp.o
+
+Buscas.i: Buscas.cpp.i
+
+.PHONY : Buscas.i
+
+# target to preprocess a source file
+Buscas.cpp.i:
+	$(MAKE) -f CMakeFiles/jogo_dos_jarros.dir/build.make CMakeFiles/jogo_dos_jarros.dir/Buscas.cpp.i
+.PHONY : Buscas.cpp.i
+
+Buscas.s: Buscas.cpp.s
+
+.PHONY : Buscas.s
+
+# target to generate assembly for a file
+Buscas.cpp.s:
+	$(MAKE) -f CMakeFiles/jogo_dos_jarros.dir/build.make CMakeFiles/jogo_dos_jarros.dir/Buscas.cpp.s
+.PHONY : Buscas.cpp.s
+
 Estado.o: Estado.cpp.o
 
 .PHONY : Estado.o
@@ -186,6 +213,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... jogo_dos_jarros"
+	@echo "... Buscas.o"
+	@echo "... Buscas.i"
+	@echo "... Buscas.s"
 	@echo "... Estado.o"
 	@echo "... Estado.i"
 	@echo "... Estado.s"

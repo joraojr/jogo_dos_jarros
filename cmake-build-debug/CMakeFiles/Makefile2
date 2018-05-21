@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-
 CMakeFiles/jogo_dos_jarros.dir/all:
 	$(MAKE) -f CMakeFiles/jogo_dos_jarros.dir/build.make CMakeFiles/jogo_dos_jarros.dir/depend
 	$(MAKE) -f CMakeFiles/jogo_dos_jarros.dir/build.make CMakeFiles/jogo_dos_jarros.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target jogo_dos_jarros"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4 "Built target jogo_dos_jarros"
 .PHONY : CMakeFiles/jogo_dos_jarros.dir/all
 
 # Include target in all.
@@ -76,7 +76,7 @@ all: CMakeFiles/jogo_dos_jarros.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/jogo_dos_jarros.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-build-debug/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-build-debug/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/jogo_dos_jarros.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/jogo_dos_jarros.dir/rule
