@@ -3,10 +3,12 @@
 
 CMakeFiles/jogo_dos_jarros.dir/Buscas.cpp.o: ../Buscas.cpp
 CMakeFiles/jogo_dos_jarros.dir/Buscas.cpp.o: ../Buscas.h
+CMakeFiles/jogo_dos_jarros.dir/Buscas.cpp.o: ../Estado.h
 
 CMakeFiles/jogo_dos_jarros.dir/Estado.cpp.o: ../Estado.cpp
 CMakeFiles/jogo_dos_jarros.dir/Estado.cpp.o: ../Estado.h
 
+CMakeFiles/jogo_dos_jarros.dir/main.cpp.o: ../Buscas.h
 CMakeFiles/jogo_dos_jarros.dir/main.cpp.o: ../Estado.h
 CMakeFiles/jogo_dos_jarros.dir/main.cpp.o: ../main.cpp
 

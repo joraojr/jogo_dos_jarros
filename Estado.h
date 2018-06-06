@@ -8,25 +8,23 @@
 
 class Estado {
 
+
     public:
 
     Estado(int tam);
     virtual ~Estado();
-    int *const *getJarro() const;
+    int  *getJarro() const;
     int getQntJarros() const;
     void setQntJarros(int qntJarros);
-    void setVolumeJarro(int jarro, int vol);
-    bool temEspaco(int jarro);
+    void setVolumeJarro(int i, int vol);
+    void dimVolumeJarro(int i, int vol);
+    int getVolumeJarro(int i);
 
 
-private:
-        /*
-         * jarro = jarro[i]
-         * volume total do jarro => j = 0
-         * volume ocupado do jarro => j = 1
-         */
-        int *jarros[2];
-        int qntJarros;
+    private:
+
+    int *jarros;
+    int qntJarros;
 
 };
 

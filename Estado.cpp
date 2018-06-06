@@ -6,19 +6,18 @@
 
 Estado::Estado(int tam) {
     qntJarros = tam;
-    (*jarros) = new int[tam];
+    jarros= new int[tam];
     for(int i =0 ; i< qntJarros ; i ++){
-        jarros[i][1] = 0 ;
+        jarros[i] = 0 ;
     }
 }
 
 Estado::~Estado() {
-    for (int i = 0; i < qntJarros; i++)
-        delete[] jarros[i];
-    delete[] jarros;
+/*    for (int i = 0; i < qntJarros; i++)
+        delete jarros[i];*/
 }
 
-int *const *Estado::getJarro() const {
+int  *Estado::getJarro() const {
     return jarros;
 }
 
@@ -30,15 +29,14 @@ int Estado::getQntJarros() const {
     return qntJarros;
 }
 
-void Estado::setVolumeJarro(int jarro, int vol) {
-    if(vol > jarros[jarro][0])
-        jarros[jarro][1] = jarros[jarro][0];
-    else
-        jarros[jarro][1] = vol;
+void Estado::setVolumeJarro(int i, int vol) {
+        jarros[i] = vol;
 }
 
-bool Estado::temEspaco(int jarro) {
-    if(jarros[jarro][1] - jarros[jarro][0] > 0)
-        return true;
-    return false;
+void Estado::dimVolumeJarro(int i, int vol) {
+    jarros[i] -= vol;
+}
+
+int Estado::getVolumeJarro(int i) {
+    return jarros[i];
 }
