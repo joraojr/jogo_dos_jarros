@@ -10,6 +10,8 @@ Estado::Estado(int tam) {
     for(int i =0 ; i< qntJarros ; i ++){
         jarros[i] = 0 ;
     }
+    operacao = 0;
+    pai = NULL;
 }
 
 Estado::~Estado() {
@@ -39,4 +41,24 @@ void Estado::dimVolumeJarro(int i, int vol) {
 
 int Estado::getVolumeJarro(int i) {
     return jarros[i];
+}
+
+int Estado::getOperacao() const {
+    return operacao;
+}
+
+void Estado::setOperacao(int i) {
+    operacao = i;
+}
+
+Estado *Estado::getPai() const {
+    return pai;
+}
+
+void Estado::setPai(Estado *pai) {
+    Estado::pai = pai;
+}
+
+void Estado::addOperacao() {
+    Estado::operacao++;
 }

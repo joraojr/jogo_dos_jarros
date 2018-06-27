@@ -39,10 +39,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/joraojr/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.5087.36/bin/cmake/bin/cmake
+CMAKE_COMMAND = /home/joraojr/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.5281.33/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /home/joraojr/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.5087.36/bin/cmake/bin/cmake -E remove -f
+RM = /home/joraojr/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.5281.33/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/joraojr/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.5087.36/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/joraojr/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.5281.33/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/joraojr/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.5087.36/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/joraojr/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.5281.33/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -177,6 +177,87 @@ Estado.cpp.s:
 	$(MAKE) -f CMakeFiles/jogo_dos_jarros.dir/build.make CMakeFiles/jogo_dos_jarros.dir/Estado.cpp.s
 .PHONY : Estado.cpp.s
 
+Fila.o: Fila.cpp.o
+
+.PHONY : Fila.o
+
+# target to build an object file
+Fila.cpp.o:
+	$(MAKE) -f CMakeFiles/jogo_dos_jarros.dir/build.make CMakeFiles/jogo_dos_jarros.dir/Fila.cpp.o
+.PHONY : Fila.cpp.o
+
+Fila.i: Fila.cpp.i
+
+.PHONY : Fila.i
+
+# target to preprocess a source file
+Fila.cpp.i:
+	$(MAKE) -f CMakeFiles/jogo_dos_jarros.dir/build.make CMakeFiles/jogo_dos_jarros.dir/Fila.cpp.i
+.PHONY : Fila.cpp.i
+
+Fila.s: Fila.cpp.s
+
+.PHONY : Fila.s
+
+# target to generate assembly for a file
+Fila.cpp.s:
+	$(MAKE) -f CMakeFiles/jogo_dos_jarros.dir/build.make CMakeFiles/jogo_dos_jarros.dir/Fila.cpp.s
+.PHONY : Fila.cpp.s
+
+Lista.o: Lista.cpp.o
+
+.PHONY : Lista.o
+
+# target to build an object file
+Lista.cpp.o:
+	$(MAKE) -f CMakeFiles/jogo_dos_jarros.dir/build.make CMakeFiles/jogo_dos_jarros.dir/Lista.cpp.o
+.PHONY : Lista.cpp.o
+
+Lista.i: Lista.cpp.i
+
+.PHONY : Lista.i
+
+# target to preprocess a source file
+Lista.cpp.i:
+	$(MAKE) -f CMakeFiles/jogo_dos_jarros.dir/build.make CMakeFiles/jogo_dos_jarros.dir/Lista.cpp.i
+.PHONY : Lista.cpp.i
+
+Lista.s: Lista.cpp.s
+
+.PHONY : Lista.s
+
+# target to generate assembly for a file
+Lista.cpp.s:
+	$(MAKE) -f CMakeFiles/jogo_dos_jarros.dir/build.make CMakeFiles/jogo_dos_jarros.dir/Lista.cpp.s
+.PHONY : Lista.cpp.s
+
+Pilha.o: Pilha.cpp.o
+
+.PHONY : Pilha.o
+
+# target to build an object file
+Pilha.cpp.o:
+	$(MAKE) -f CMakeFiles/jogo_dos_jarros.dir/build.make CMakeFiles/jogo_dos_jarros.dir/Pilha.cpp.o
+.PHONY : Pilha.cpp.o
+
+Pilha.i: Pilha.cpp.i
+
+.PHONY : Pilha.i
+
+# target to preprocess a source file
+Pilha.cpp.i:
+	$(MAKE) -f CMakeFiles/jogo_dos_jarros.dir/build.make CMakeFiles/jogo_dos_jarros.dir/Pilha.cpp.i
+.PHONY : Pilha.cpp.i
+
+Pilha.s: Pilha.cpp.s
+
+.PHONY : Pilha.s
+
+# target to generate assembly for a file
+Pilha.cpp.s:
+	$(MAKE) -f CMakeFiles/jogo_dos_jarros.dir/build.make CMakeFiles/jogo_dos_jarros.dir/Pilha.cpp.s
+.PHONY : Pilha.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -219,6 +300,15 @@ help:
 	@echo "... Estado.o"
 	@echo "... Estado.i"
 	@echo "... Estado.s"
+	@echo "... Fila.o"
+	@echo "... Fila.i"
+	@echo "... Fila.s"
+	@echo "... Lista.o"
+	@echo "... Lista.i"
+	@echo "... Lista.s"
+	@echo "... Pilha.o"
+	@echo "... Pilha.i"
+	@echo "... Pilha.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

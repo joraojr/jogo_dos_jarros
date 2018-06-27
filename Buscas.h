@@ -6,6 +6,12 @@
 #define JOGO_DOS_JARROS_BUSCAS_H
 
 #include "Estado.h"
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
 
 
 class Buscas {
@@ -15,6 +21,8 @@ private:
     int * volumes;
     int * objetivo;
     Estado *estadoInicial, *estadoAtual;
+    int qntOperacoes;
+    int numPermutacoes;
 
 public:
     Buscas(int * volumes,int* objetivo, int tam);
@@ -25,6 +33,35 @@ public:
     int getVolume(int i);
     void addVolume(int i);
     void transferirVolume(int i, int j);
+
+    bool transferirVolumeAux(Estado *filho, int i, int j);
+
+    void buscaLargura();
+
+    bool backtraking();
+
+    bool maxToMin(Estado *filho);
+
+    bool encher(Estado *filho);
+
+    bool ehSolucao(Estado *filho);
+
+    bool ehEstadoInicial();
+
+    bool existeFilho(Estado *filho);
+
+    Estado *criaFilho();
+
+    void troca(Estado *filho);
+
+    bool ehIgual(Estado *filho);
+
+    bool permutacao2a2(Estado *filho);
+
+    bool esvazia(Estado *filho);
+
+    void imprime(Estado *filho);
+
 
 };
 

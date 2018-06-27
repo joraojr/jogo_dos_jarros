@@ -1,4 +1,4 @@
-/home/joraojr/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.5087.36/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros
+/home/joraojr/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.5281.33/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-build-debug

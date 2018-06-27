@@ -13,12 +13,40 @@ Buscas.h
 /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Buscas.h
 Estado.h
 /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Estado.h
+iostream
+-
+algorithm
+-
+vector
+-
 
 /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Estado.cpp
 Estado.h
 /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Estado.h
 
 /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Estado.h
+iostream
+-
+
+/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Fila.cpp
+Fila.h
+/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Fila.h
+
+/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Fila.h
+
+/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Lista.cpp
+Lista.h
+/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Lista.h
+
+/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Lista.h
+Estado.h
+/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Estado.h
+
+/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Pilha.cpp
+Pilha.h
+/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Pilha.h
+
+/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Pilha.h
 
 /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/main.cpp
 iostream

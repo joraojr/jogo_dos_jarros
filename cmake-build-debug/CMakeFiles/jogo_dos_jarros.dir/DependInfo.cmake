@@ -6,6 +6,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Buscas.cpp" "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-build-debug/CMakeFiles/jogo_dos_jarros.dir/Buscas.cpp.o"
   "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Estado.cpp" "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-build-debug/CMakeFiles/jogo_dos_jarros.dir/Estado.cpp.o"
+  "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Fila.cpp" "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-build-debug/CMakeFiles/jogo_dos_jarros.dir/Fila.cpp.o"
+  "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Lista.cpp" "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-build-debug/CMakeFiles/jogo_dos_jarros.dir/Lista.cpp.o"
+  "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Pilha.cpp" "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-build-debug/CMakeFiles/jogo_dos_jarros.dir/Pilha.cpp.o"
   "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/main.cpp" "/home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/cmake-build-debug/CMakeFiles/jogo_dos_jarros.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
