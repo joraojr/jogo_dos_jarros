@@ -41,6 +41,9 @@ public:
 
     bool profundidade();
 
+    bool largura();
+
+
     bool backtraking();
 
     bool maxToMin(Estado *filho);

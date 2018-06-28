@@ -139,6 +139,7 @@ bool Buscas::backtraking() {
                 filho = estadoAtual;
                 filho->setOperacao(0);
                 estadoAtual = estadoAtual->getPai();
+                break;
 
             }
         }
@@ -176,6 +177,7 @@ bool Buscas::profundidade() {
                     }
                     else{
                         delete filho;
+                        break;
                     }
                 }
                  fechados->insere(estadoAtual);
@@ -186,6 +188,47 @@ bool Buscas::profundidade() {
     return sucesso;
 
 }
+bool Buscas::largura() {
+    Fila *abertos = new Fila;
+    Lista *fechados = new Lista;
+    bool fracasso = false, sucesso = false;
+    abertos->insere(estadoAtual);
+    Estado *filho;
+    while (!(sucesso || fracasso)) {
+        if (abertos->ehVazio()) {
+            fracasso = true;
+        } else {
+            estadoAtual = abertos->getPrimeiro();
+            abertos->remove();
+            filho = criaFilho();
+            if (ehSolucao(filho)) {
+                sucesso = true;
+            } else {
+                while (estadoAtual->getOperacao() < qntOperacoes) {
+                    if (encher(filho)) {
+                        filho->setPai(estadoAtual);
+                        abertos->insere(filho);
+                        filho = criaFilho();
+                    } else if (permutacao2a2(filho)) {
+                        filho->setPai(estadoAtual);
+                        abertos->insere(filho);
+                        filho = criaFilho();
+                    }
+                    else{
+                        delete filho;
+                        break;
+                    }
+                }
+                fechados->insere(estadoAtual);
+            }
+        }
+
+    }
+    return sucesso;
+
+}
+
+
 
     bool Buscas::ehIgual(Estado *filho) {
 
@@ -303,9 +346,9 @@ bool Buscas::maxToMin(Estado *filho) {
         Estado *aux = estadoAtual;
         Estado *aux2 = criaFilho();
         int i;
-      // cout << "NO: ";
-       // imprime(filho);
-     //   cout<<endl;
+       cout << "NO: ";
+        imprime(filho);
+        cout<<endl;
 
         for (i = 0; i < qntJarros; i++) {
             if (aux2->getVolumeJarro(i) != filho->getVolumeJarro(i)) {
@@ -322,7 +365,7 @@ bool Buscas::maxToMin(Estado *filho) {
                 }
             }
             if (i == qntJarros) return true;
-   //         imprime(aux);
+            imprime(aux);
 
 
         }
