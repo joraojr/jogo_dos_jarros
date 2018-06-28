@@ -1,11 +1,12 @@
 //
-// Created by joraojr on 11/06/18.
+// Created by joraojr on 27/06/18.
 //
 
 #ifndef JOGO_DOS_JARROS_LISTA_H
 #define JOGO_DOS_JARROS_LISTA_H
 
 #include "Estado.h"
+
 
 struct No {
     Estado *estadoAtual;
@@ -14,19 +15,15 @@ struct No {
 
 
 class Lista {
+private:
+    No *primeiro;
 public:
     Lista();
-
     virtual ~Lista();
-
-    void Insere(Estado *estado);
-
-    void Remove();
-
-
-private:
-    No *raiz;
-
+    Estado* getPrimeiro();
+    void insere(Estado * filho);
+    void remove();
+    bool ehVazio();
 };
 
 

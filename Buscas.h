@@ -6,6 +6,9 @@
 #define JOGO_DOS_JARROS_BUSCAS_H
 
 #include "Estado.h"
+#include "Fila.h"
+#include "Pilha.h"
+#include "Lista.h"
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -36,7 +39,7 @@ public:
 
     bool transferirVolumeAux(Estado *filho, int i, int j);
 
-    void buscaLargura();
+    bool profundidade();
 
     bool backtraking();
 

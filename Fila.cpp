@@ -1,14 +1,15 @@
 //
-// Created by joraojr on 27/06/18.
+// Created by joraojr on 11/06/18.
 //
 
-#include "Lista.h"
+#include "Fila.h"
 
-Lista::Lista() {
-    Lista::primeiro = NULL;
+Fila::Fila() {
+    Fila::primeiro = NULL;
+    Fila::ultimo = NULL;
 }
 
-Lista::~Lista() {
+Fila::~Fila() {
     No *p =primeiro;
 
     while (primeiro != NULL){
@@ -17,37 +18,35 @@ Lista::~Lista() {
         p = primeiro;
     }
 
+    ultimo =  NULL;
 }
 
-Estado * Lista::getPrimeiro() {
+Estado * Fila::getPrimeiro() {
     if(primeiro != NULL)
         return primeiro->estadoAtual;
     return NULL;
 }
 
-bool  Lista::ehVazio() {
-    if(primeiro == NULL)
+bool  Fila::ehVazio() {
+    if(ultimo == NULL)
         return true;
     return false;
 
 }
 
-void Lista::insere(Estado *filho) {
-    No * p = new No, *aux = primeiro;
+void Fila::insere(Estado *filho) {
+    No * p = new No();
     p->estadoAtual = filho;
     p->prox = NULL;
-    if(primeiro == NULL){
+
+    if(ultimo == NULL)
         primeiro = p;
-    }
-    else {
-        while (aux->prox != NULL) {
-            aux = aux->prox;
-        }
-        aux->prox = p;
-    }
+    else
+        ultimo->prox = p;
+
+    ultimo = p;
 }
 
-/*
 void Fila::remove() {
     No * p;
 
@@ -61,4 +60,4 @@ void Fila::remove() {
         delete p;
     }
 
-}*/
+}

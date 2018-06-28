@@ -13,8 +13,8 @@ void imprime(Buscas *b, int tam){
 int main() {
     //Estado *estado = new Estado(3);
     int tam = 3;
-    int vol[tam] = {3, 4, 5};
-    int obj[tam] = {0, 0, 5};
+    int vol[tam] = {3,6,5};
+    int obj[tam] = {3,6,5};
     Buscas *b = new Buscas(vol, obj, tam);
     // b->permutacao2a2();
     /*  b->addVolume(1);
@@ -27,7 +27,8 @@ int main() {
       b->transferirVolume(0,1);
       imprime(b,tam);
   */
-    cout << b->backtraking();
+   cout << b->profundidade();
+ //  cout << b->backtraking();
 
 
 

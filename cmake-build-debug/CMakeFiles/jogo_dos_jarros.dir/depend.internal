@@ -5,20 +5,30 @@ CMakeFiles/jogo_dos_jarros.dir/Buscas.cpp.o
  /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Buscas.cpp
  /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Buscas.h
  /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Estado.h
+ /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Fila.h
+ /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Lista.h
+ /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Pilha.h
 CMakeFiles/jogo_dos_jarros.dir/Estado.cpp.o
  /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Estado.cpp
  /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Estado.h
 CMakeFiles/jogo_dos_jarros.dir/Fila.cpp.o
+ /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Estado.h
  /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Fila.cpp
  /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Fila.h
+ /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Lista.h
 CMakeFiles/jogo_dos_jarros.dir/Lista.cpp.o
  /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Estado.h
  /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Lista.cpp
  /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Lista.h
 CMakeFiles/jogo_dos_jarros.dir/Pilha.cpp.o
+ /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Estado.h
+ /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Lista.h
  /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Pilha.cpp
  /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Pilha.h
 CMakeFiles/jogo_dos_jarros.dir/main.cpp.o
  /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Buscas.h
  /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Estado.h
+ /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Fila.h
+ /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Lista.h
+ /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Pilha.h
  /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/main.cpp
