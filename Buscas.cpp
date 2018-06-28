@@ -139,8 +139,6 @@ bool Buscas::backtraking() {
                 filho = estadoAtual;
                 filho->setOperacao(0);
                 estadoAtual = estadoAtual->getPai();
-                break;
-
             }
         }
 
@@ -346,9 +344,11 @@ bool Buscas::maxToMin(Estado *filho) {
         Estado *aux = estadoAtual;
         Estado *aux2 = criaFilho();
         int i;
+/*
        cout << "NO: ";
         imprime(filho);
         cout<<endl;
+*/
 
         for (i = 0; i < qntJarros; i++) {
             if (aux2->getVolumeJarro(i) != filho->getVolumeJarro(i)) {
@@ -365,7 +365,7 @@ bool Buscas::maxToMin(Estado *filho) {
                 }
             }
             if (i == qntJarros) return true;
-            imprime(aux);
+//            imprime(aux);
 
 
         }
