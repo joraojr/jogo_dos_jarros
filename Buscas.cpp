@@ -46,8 +46,7 @@ bool Buscas::transferirVolumeAux(Estado *filho, int i, int j) {
     int auxJ = estadoAtual->getVolumeJarro(j);
     transferirVolume(i, j);
 
-    if (ehIgual(filho) || existeFilho(filho) ||
-        (estadoAtual->getVolumeJarro(i) == auxI && estadoAtual->getVolumeJarro(j) == auxJ)) {
+    if (existeFilho(filho) || (estadoAtual->getVolumeJarro(i) == auxI && estadoAtual->getVolumeJarro(j) == auxJ)) {
         estadoAtual->setVolumeJarro(i, auxI);
         estadoAtual->setVolumeJarro(j, auxJ);
         return false;
@@ -86,13 +85,15 @@ void Buscas::transferirVolume(int i, int j) {
     }
 }
 
-void Buscas::imprime(Estado *filho) {
+void Buscas::imprime() {
     for (int i = 0; i < qntJarros; i++) {
         cout << "-" << estadoAtual->getVolumeJarro(i) << "-";
     }
-    cout << "F: ";
-    for (int i = 0; i < qntJarros; i++) {
-        cout << "-" << filho->getVolumeJarro(i) << "-";
+    cout << "Pai: ";
+    if(estadoAtual->getPai() != NULL) {
+        for (int i = 0; i < qntJarros; i++) {
+            cout << "-" << estadoAtual->getPai()->getVolumeJarro(i) << "-";
+        }
     }
     cout << endl;
 
@@ -106,7 +107,7 @@ bool Buscas::backtraking() {
     if (ehSolucao(filho))
         return true;
     while (!(fracasso || sucesso)) {
-        imprime(filho);
+        imprime();
         if (estadoAtual->getOperacao() < qntOperacoes) {
             if (encher(filho)) {
                 filho->setPai(estadoAtual);
@@ -245,7 +246,7 @@ bool Buscas::largura() {
             if (estadoAtual->getVolumeJarro(i) < volumes[i]) {
                 int aux = estadoAtual->getVolumeJarro(i);
                 estadoAtual->setVolumeJarro(i, volumes[i]);
-                if (!ehIgual(filho) && !existeFilho(filho)) {
+                if (!existeFilho(filho)) {
                     troca(filho);
                     estadoAtual->setVolumeJarro(i, aux);
                     filho->setVolumeJarro(i, volumes[i]);

@@ -66,7 +66,7 @@ public:
 
     bool esvazia(Estado *filho);
 
-    void imprime(Estado *filho);
+    void imprime();
 
 
 };

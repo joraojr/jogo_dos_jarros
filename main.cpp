@@ -12,9 +12,9 @@ void imprime(Buscas *b, int tam){
 }
 int main() {
     //Estado *estado = new Estado(3);
-    int tam = 3;
-    int vol[tam] = {1,10,1};
-    int obj[tam] = {0,9,1};
+    int tam = 4;
+    int vol[tam] = {1,1,1,1};
+    int obj[tam] = {1,1,1,10};
     Buscas *b = new Buscas(vol, obj, tam);
     // b->permutacao2a2();
     /*  b->addVolume(1);
