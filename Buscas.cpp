@@ -42,12 +42,13 @@ bool Buscas::backtraking() {
     while (!sucesso && !abertos->ehVazio()) {
         pai = abertos->getTopo();
         candidato = criaCandidato(pai);
-        imprime(candidato);
+        //   imprime(candidato);
         if (pai->getOperacao() < qntOperacoes) {
             //  cout <<"aqui||- "<<pai->getOperacao()<<endl;
             if (enche(candidato, pai, abertos) || permutacao2a2(candidato, pai, abertos) ||
                 esvazia(candidato, pai, abertos)) {
                 if (ehSolucao(candidato)) {
+                    fechados->insere(candidato);
                     sucesso = true;
                 }
                 //aumenta altura
@@ -61,21 +62,21 @@ bool Buscas::backtraking() {
         }
 
     }
-   // fechados->imprime();
+    fechados->imprime();
     return sucesso;
 }
 
-bool Buscas::profundidade(){
+bool Buscas::profundidade() {
     bool fracasso = false, sucesso = false;
     Pilha *abertos = new Pilha;
     Lista *fechados = new Lista;
     Estado *pai = new Estado(qntJarros);
     Estado *candidato;
     abertos->empilha(pai);
-    while (!sucesso && !abertos->ehVazio()){
+    while (!sucesso && !abertos->ehVazio()) {
         pai = abertos->getTopo();
         candidato = criaCandidato(pai);
-       // imprime(candidato);
+        // imprime(candidato);
         abertos->desempilha();
         fechados->insere(pai);
         while (pai->getOperacao() < qntOperacoes) {
@@ -97,14 +98,14 @@ bool Buscas::profundidade(){
 
 }
 
-bool Buscas::largura(){
-    bool fracasso = false, sucesso = false;
+bool Buscas::largura() {
+    bool sucesso = false;
     Fila *abertos = new Fila;
     Lista *fechados = new Lista;
     Estado *pai = new Estado(qntJarros);
     Estado *candidato;
     abertos->insere(pai);
-    while (!sucesso && !abertos->ehVazio()){
+    while (!sucesso && !abertos->ehVazio()) {
         pai = abertos->getPrimeiro();
         candidato = criaCandidato(pai);
         // imprime(candidato);
@@ -129,16 +130,58 @@ bool Buscas::largura(){
 
 }
 
+bool Buscas::ordenada() {
+    int custo = -1;
+    bool sucesso = false;
+    Lista *abertos = new Lista;
+    Lista *fechados = new Lista;
+    Estado *pai = new Estado(qntJarros);
+    Estado *candidato;
+    abertos->insereOrdenado(pai);
+    while (!sucesso && !abertos->ehVazio()) {
+        pai = abertos->getPrimeiro();
+        candidato = criaCandidato(pai);
+        abertos->remove();
+        fechados->insere(pai);
+/*        imprime(pai);
+        cout << "Custo :::" << candidato->getCusto()<<endl;*/
+        if (ehSolucao(candidato)) {
+            sucesso = true;
+            custo = candidato->getCusto();
+        } else {
+            while (pai->getOperacao() < qntOperacoes) {
+                if (enche(candidato, pai) || permutacao2a2(candidato, pai) ||
+                    esvazia(candidato, pai)){
+                    candidato->setPai(pai);
+/*                    imprime(candidato);
+                    cout << "Custo :::" << candidato->getCusto()<<endl;*/
+                    abertos->insereOrdenado(candidato);
+                    candidato = criaCandidato(pai);
+                }
+            }
+        }
+    }
+    cout<<"Custo da solução: "<<custo;
+    fechados->imprime();
+    return sucesso;
+}
+
 Estado *Buscas::criaCandidato(Estado *pai) {
     Estado *candidato = new Estado(qntJarros);
     for (int i = 0; i < qntJarros; i++) {
         candidato->setVolumeJarro(i, pai->getVolumeJarro(i));
     }
-
+    candidato->setCusto(pai->getCusto());
     return candidato;
 
 }
 
+void Buscas::criaCandidatos(Estado **candidatos) {
+    for (int i = 0; i < qntOperacoes; i++) {
+        candidatos[i] = NULL;
+    }
+
+}
 
 bool Buscas::enche(Estado *candidato, Estado *pai, Pilha *abertos) {
 
@@ -225,8 +268,10 @@ bool Buscas::enche(Estado *candidato, Estado *pai) {
         if (pai->getVolumeJarro(i) < volumes[i]) {
             int aux = candidato->getVolumeJarro(i);
             candidato->setVolumeJarro(i, volumes[i]);
-            if (!existeCandidato(candidato,pai))
+            if (!existeCandidato(candidato, pai)) {
+                candidato->addCusto(pai->getOperacao());
                 return true;
+            }
             candidato->setVolumeJarro(i, aux);
         }
     }
@@ -238,9 +283,6 @@ bool Buscas::permutacao2a2(Estado *candidato, Estado *pai) {
 
     std::vector<bool> v(qntJarros);
     std::fill(v.end() - 2, v.end(), true);
-/*
-    cout << "aqui||- " << pai->getOperacao() << endl;
-*/
 
     int i, j, count = 1;
     do {
@@ -253,10 +295,14 @@ bool Buscas::permutacao2a2(Estado *candidato, Estado *pai) {
         }
         if (count > (pai->getOperacao() - qntJarros)) {
             pai->addOperacao();
-            if (transferirVolumeAux(candidato,pai, i - j, j))
+            if (transferirVolumeAux(candidato, pai, i - j, j)) {
+                candidato->addCusto(pai->getOperacao());
                 return true;
-            if (transferirVolumeAux(candidato,pai, j, i - j))
+            }
+            if (transferirVolumeAux(candidato, pai, j, i - j)) {
+                candidato->addCusto(pai->getOperacao());
                 return true;
+            }
         }
         count++;
     } while (next_permutation(v.begin(), v.end()));
@@ -272,8 +318,10 @@ bool Buscas::esvazia(Estado *candidato, Estado *pai) {
         if (pai->getVolumeJarro(i) > 0) {
             int aux = candidato->getVolumeJarro(i);
             candidato->setVolumeJarro(i, 0);
-            if (!existeCandidato(candidato,pai))
+            if (!existeCandidato(candidato, pai)) {
+                candidato->addCusto(pai->getOperacao());
                 return true;
+            }
             candidato->setVolumeJarro(i, aux);
         }
     }
@@ -282,12 +330,13 @@ bool Buscas::esvazia(Estado *candidato, Estado *pai) {
 
 }
 
-bool Buscas::transferirVolumeAux(Estado *candidato, Estado* pai, int i, int j) {
+bool Buscas::transferirVolumeAux(Estado *candidato, Estado *pai, int i, int j) {
     int auxI = candidato->getVolumeJarro(i);
     int auxJ = candidato->getVolumeJarro(j);
     transferirVolume(candidato, i, j);
 
-    if (existeCandidato(candidato,pai) || (candidato->getVolumeJarro(i) == auxI && candidato->getVolumeJarro(j) == auxJ)) {
+    if (existeCandidato(candidato, pai) ||
+        (candidato->getVolumeJarro(i) == auxI && candidato->getVolumeJarro(j) == auxJ)) {
         candidato->setVolumeJarro(i, auxI);
         candidato->setVolumeJarro(j, auxJ);
         return false;
@@ -295,7 +344,6 @@ bool Buscas::transferirVolumeAux(Estado *candidato, Estado* pai, int i, int j) {
     return true;
 
 }
-
 
 
 void Buscas::transferirVolume(Estado *candidato, int i, int j) {
@@ -339,12 +387,12 @@ bool Buscas::ehSolucao(Estado *candidato) {
 }
 
 
-bool Buscas::existeCandidato(Estado *candidato, Estado* pai) {
+bool Buscas::existeCandidato(Estado *candidato, Estado *pai) {
 
     Estado *aux = pai;
     int i;
     while (aux != NULL) {
-        for ( i = 0; i < qntJarros; i++) {
+        for (i = 0; i < qntJarros; i++) {
             if (aux->getVolumeJarro(i) != candidato->getVolumeJarro(i)) {
                 break;
             }

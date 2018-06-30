@@ -35,17 +35,32 @@ bool  Lista::ehVazio() {
 void Lista::insere(Estado *filho) {
     No * p = new No, *aux = primeiro;
     p->estadoAtual = filho;
+    p->prox = aux;
+    primeiro= p;
+}
+
+
+void Lista::insereOrdenado(Estado *filho) {
+    No * p = new No, *aux = primeiro;
+    p->estadoAtual = filho;
     p->prox = NULL;
     if(primeiro == NULL){
         primeiro = p;
     }
     else {
-        while (aux->prox != NULL) {
+        while(aux->prox != NULL && aux->estadoAtual->getCusto() <= p->estadoAtual->getCusto()){
+            if(aux->prox->estadoAtual->getCusto() > p->estadoAtual->getCusto()){
+                No* p1 = aux->prox;
+                aux->prox = p;
+                p->prox = p1;
+                break;
+            }
             aux = aux->prox;
         }
         aux->prox = p;
     }
 }
+
 
 void Lista::imprimeEstado(Estado *pai) {
     int qntJarros = pai->getQntJarros();
@@ -72,18 +87,26 @@ void Lista::imprime() {
     }
 }
 
-/*
-void Fila::remove() {
-    No * p;
 
-    if(primeiro != NULL){
-        p = primeiro;
-        primeiro = primeiro->prox;
-
-        if(primeiro == NULL )
-            ultimo = NULL;
-
-        delete p;
+Estado * Lista::getMenorCusto() {
+    No*p = primeiro;
+    No*estadoMenorCusto = primeiro;
+    int menorCusto = primeiro->estadoAtual->getOperacao();
+    while (p != NULL){
+        if(p->estadoAtual->getOperacao()< menorCusto){
+            menorCusto = p->estadoAtual->getOperacao();
+            estadoMenorCusto = p;
+        }
+        p = p->prox;
     }
 
-}*/
+    return estadoMenorCusto->estadoAtual;
+
+}
+void Lista::remove() {
+
+    No * p = primeiro;
+    primeiro = p->prox;
+    delete p;
+
+}

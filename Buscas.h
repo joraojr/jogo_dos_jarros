@@ -36,6 +36,7 @@ private:
     bool esvazia(Estado *candidato, Estado* pai);
     bool existeCandidato(Estado *candidato,Estado * pai);
     Estado* criaCandidato(Estado* pai);
+    void criaCandidatos(Estado ** candidatos);
     bool ehSolucao(Estado *candidato);
     void imprime(Estado* pai);
 
@@ -45,9 +46,10 @@ public:
     bool backtraking();
     bool profundidade();
     bool largura();
+    bool ordenada();
 
 
-};
+    };
 
 
 

@@ -20,24 +20,22 @@ public:
     void setVolumeJarro(int i, int vol);
     void dimVolumeJarro(int i, int vol);
     int getVolumeJarro(int i);
-
     int getOperacao() const;
-
     void setOperacao(int i);
-
     Estado *getPai() const;
-
     void setPai(Estado *pai);
-
     void addOperacao();
-
+    int getCusto() const;
+    void setCusto(int custo);
+    void addCusto(int custo);
 
 private:
-
     int *jarros;
     int qntJarros;
     int operacao;
+    int custo;
     Estado *pai;
+
 
 
 };

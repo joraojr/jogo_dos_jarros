@@ -12,6 +12,7 @@ Estado::Estado(int tam) {
     }
     operacao = 0;
     pai = NULL;
+    custo = 0;
 }
 
 Estado::~Estado() {
@@ -62,3 +63,16 @@ void Estado::setPai(Estado *pai) {
 void Estado::addOperacao() {
     Estado::operacao++;
 }
+
+int Estado::getCusto() const {
+    return custo;
+}
+
+void Estado::setCusto(int custo) {
+    Estado::custo = custo;
+}
+
+void Estado::addCusto(int custo) {
+    Estado::custo = Estado::custo + custo;
+}
+
