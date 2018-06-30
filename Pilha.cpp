@@ -38,7 +38,7 @@ void Pilha::desempilha() {
     if(topo != NULL){
         p= topo;
         topo= p->prox;
-        delete p;
+        delete p; // VERIFICAR
     }
 }
 
@@ -49,7 +49,7 @@ bool Pilha::ehVazio() {
 bool Pilha::existe(Estado * filho){
     No *p = topo;
     int i;
-    while( p !=NULL && p->estadoAtual->getPai() == filho->getPai()){
+    while(p!= NULL){
         for(i = 0; i < filho->getQntJarros(); i++ ){
             if(p->estadoAtual->getVolumeJarro(i) != filho->getVolumeJarro(i))
                 break;

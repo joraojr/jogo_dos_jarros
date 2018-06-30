@@ -47,6 +47,31 @@ void Lista::insere(Estado *filho) {
     }
 }
 
+void Lista::imprimeEstado(Estado *pai) {
+    int qntJarros = pai->getQntJarros();
+    for (int i = 0; i < qntJarros; i++) {
+        cout << "-" << pai->getVolumeJarro(i) << "-";
+    }
+    cout << "Pai: ";
+    if (pai->getPai() != NULL) {
+        for (int i = 0; i < qntJarros; i++) {
+            cout << "-" << pai->getPai()->getVolumeJarro(i) << "-";
+        }
+    }
+    cout << endl;
+
+}
+
+
+void Lista::imprime() {
+    No* p = primeiro;
+
+    while (p!= NULL){
+        imprimeEstado(p->estadoAtual);
+        p = p->prox;
+    }
+}
+
 /*
 void Fila::remove() {
     No * p;

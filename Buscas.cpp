@@ -1,98 +1,30 @@
 //
-// Created by joraojr on 21/05/18.
+// Created by joraojr on 21/06/18.
 //
 
 #include "Buscas.h"
-
 
 Buscas::Buscas(int *volumes, int *objetivo, int tam) {
     Buscas::qntJarros = tam;
     Buscas::volumes = volumes;
     Buscas::objetivo = objetivo;
-    Buscas::estadoInicial = new Estado(qntJarros);
-    Buscas::estadoAtual = new Estado(qntJarros);
     Buscas::numPermutacoes = (qntJarros * (qntJarros - 1)) / 2;
-    Buscas::qntOperacoes = (qntJarros + numPermutacoes);
+    Buscas::qntOperacoes = (2 * qntJarros + numPermutacoes);
 
 }
-
 
 Buscas::~Buscas() {
 
 }
 
-int *Buscas::getVolumes() const {
-    return volumes;
-}
-
-int *Buscas::getObjetivo() const {
-    return objetivo;
-}
-
-void Buscas::addVolume(int i) {
-    estadoAtual->setVolumeJarro(i, volumes[i]);
-}
-
-int Buscas::getVolume(int i) {
-    return estadoAtual->getVolumeJarro(i);
-}
-
-int Buscas::getEstadoAtual(int i) {
-    return estadoAtual->getVolumeJarro(i);
-}
-
-bool Buscas::transferirVolumeAux(Estado *filho, int i, int j) {
-    int auxI = estadoAtual->getVolumeJarro(i);
-    int auxJ = estadoAtual->getVolumeJarro(j);
-    transferirVolume(i, j);
-
-    if (existeFilho(filho) || (estadoAtual->getVolumeJarro(i) == auxI && estadoAtual->getVolumeJarro(j) == auxJ)) {
-        estadoAtual->setVolumeJarro(i, auxI);
-        estadoAtual->setVolumeJarro(j, auxJ);
-        return false;
-    }
-    troca(filho);
-    estadoAtual->setVolumeJarro(i, auxI);
-    estadoAtual->setVolumeJarro(j, auxJ);
-    return true;
-
-}
-
-void Buscas::transferirVolume(int i, int j) {
-
-    if (i != j) {
-        int atualI = estadoAtual->getVolumeJarro(i);
-        int atualJ = estadoAtual->getVolumeJarro(j);
-        if (atualI > 0 && atualJ == 0) {
-            if (atualI >= volumes[j]) {
-                estadoAtual->setVolumeJarro(j, volumes[j]);
-                estadoAtual->setVolumeJarro(i, atualI - volumes[j]);
-            } else if (atualI < volumes[j]) {
-                estadoAtual->setVolumeJarro(j, atualI);
-                estadoAtual->setVolumeJarro(i, 0);
-            }
-        } else if (atualI > 0 && atualJ > 0) {
-            if (volumes[j] - atualJ >= atualI) {
-                estadoAtual->setVolumeJarro(j, atualJ + atualI);
-                estadoAtual->setVolumeJarro(i, 0);
-            } else if (volumes[j] - atualJ < atualI && volumes[j] - atualJ > 0) {
-                int aux = volumes[j] - atualJ;
-                estadoAtual->setVolumeJarro(j, volumes[j]);
-                estadoAtual->setVolumeJarro(i, atualI - aux);
-            }
-
-        }
-    }
-}
-
-void Buscas::imprime() {
+void Buscas::imprime(Estado *pai) {
     for (int i = 0; i < qntJarros; i++) {
-        cout << "-" << estadoAtual->getVolumeJarro(i) << "-";
+        cout << "-" << pai->getVolumeJarro(i) << "-";
     }
     cout << "Pai: ";
-    if(estadoAtual->getPai() != NULL) {
+    if (pai->getPai() != NULL) {
         for (int i = 0; i < qntJarros; i++) {
-            cout << "-" << estadoAtual->getPai()->getVolumeJarro(i) << "-";
+            cout << "-" << pai->getPai()->getVolumeJarro(i) << "-";
         }
     }
     cout << endl;
@@ -102,304 +34,211 @@ void Buscas::imprime() {
 
 bool Buscas::backtraking() {
     bool fracasso = false, sucesso = false;
-    Estado *filho = criaFilho();
-    //int count = 0;
-    if (ehSolucao(filho))
-        return true;
-    while (!(fracasso || sucesso)) {
-        imprime();
-        if (estadoAtual->getOperacao() < qntOperacoes) {
-            if (encher(filho)) {
-                filho->setPai(estadoAtual);
-                if (ehSolucao(filho))
-                    sucesso = true;
-                estadoAtual = filho;
-                filho = criaFilho();
-            } else if (permutacao2a2(filho)) {
-                filho->setPai(estadoAtual);
-                if (ehSolucao(filho))
-                    sucesso = true;
-                estadoAtual = filho;
-                filho = criaFilho();
-            } /*else if (esvazia(filho) && !existeFilho(filho)) {
-                filho->setPai(estadoAtual);
-                if (ehSolucao(filho))
-                    sucesso = true;
-                estadoAtual = filho;
-                filho = criaFilho();
-            }*/
-
-        } else {
-            if (ehEstadoInicial()) {
-                fracasso = true;
-            } else {
-/*
-                cout<< ++count;
-*/
-                delete filho;
-                filho = estadoAtual;
-                filho->setOperacao(0);
-                estadoAtual = estadoAtual->getPai();
-            }
-        }
-
-    }
-
-    return sucesso;
-}
-
-bool Buscas::profundidade() {
     Pilha *abertos = new Pilha;
     Lista *fechados = new Lista;
-    bool fracasso = false, sucesso = false;
-    abertos->empilha(estadoAtual);
-    Estado *filho;
-    while (!(sucesso || fracasso)) {
-        if (abertos->ehVazio()) {
-            fracasso = true;
+    Estado *pai = new Estado(qntJarros);
+    Estado *candidato;
+    abertos->empilha(pai);
+    while (!sucesso && !abertos->ehVazio()) {
+        pai = abertos->getTopo();
+        candidato = criaCandidato(pai);
+        imprime(candidato);
+        if (pai->getOperacao() < qntOperacoes) {
+            //  cout <<"aqui||- "<<pai->getOperacao()<<endl;
+            if (enche(candidato, pai, abertos)) {
+                if (ehSolucao(candidato)) {
+                    sucesso = true;
+                }
+                //aumenta altura
+                abertos->empilha(candidato);
+
+            } else if (permutacao2a2(candidato, pai, abertos)) {
+                if (ehSolucao(candidato)) {
+                    sucesso = true;
+                }
+                //aumenta altura
+                abertos->empilha(candidato);
+            } else if (esvazia(candidato, pai, abertos)) {
+
+                if (ehSolucao(candidato)) {
+                    sucesso = true;
+                }
+                //aumenta altura
+                abertos->empilha(candidato);
+            }
+
         } else {
-            estadoAtual = abertos->getTopo();
+            //diminui altura
             abertos->desempilha();
-            filho = criaFilho();
-            if (ehSolucao(filho)) {
-                sucesso = true;
-            } else {
-                while (estadoAtual->getOperacao() < qntOperacoes) {
-                    if (encher(filho)) {
-                        filho->setPai(estadoAtual);
-                        abertos->empilha(filho);
-                        filho = criaFilho();
-                    } else if (permutacao2a2(filho)) {
-                        filho->setPai(estadoAtual);
-                        abertos->empilha(filho);
-                        filho = criaFilho();
-                    }
-                    else{
-                        delete filho;
-                        break;
-                    }
-                }
-                 fechados->insere(estadoAtual);
-            }
+            fechados->insere(candidato);
         }
 
     }
+    //fechados->imprime();
     return sucesso;
-
-}
-bool Buscas::largura() {
-    Fila *abertos = new Fila;
-    Lista *fechados = new Lista;
-    bool fracasso = false, sucesso = false;
-    abertos->insere(estadoAtual);
-    Estado *filho;
-    while (!(sucesso || fracasso)) {
-        if (abertos->ehVazio()) {
-            fracasso = true;
-        } else {
-            estadoAtual = abertos->getPrimeiro();
-            abertos->remove();
-            filho = criaFilho();
-            if (ehSolucao(filho)) {
-                sucesso = true;
-            } else {
-                while (estadoAtual->getOperacao() < qntOperacoes) {
-                    if (encher(filho)) {
-                        filho->setPai(estadoAtual);
-                        abertos->insere(filho);
-                        filho = criaFilho();
-                    } else if (permutacao2a2(filho)) {
-                        filho->setPai(estadoAtual);
-                        abertos->insere(filho);
-                        filho = criaFilho();
-                    }
-                    else{
-                        delete filho;
-                        break;
-                    }
-                }
-                fechados->insere(estadoAtual);
-            }
-        }
-
-    }
-    return sucesso;
-
 }
 
-
-
-    bool Buscas::ehIgual(Estado *filho) {
-
-        for (int i = 0; i < qntJarros; i++) {
-            if (estadoAtual->getVolumeJarro(i) != filho->getVolumeJarro(i))
-                return false;
-
-        }
-        return true;
-    }
-
-    bool Buscas::encher(Estado *filho) {
-
-        for (int i = estadoAtual->getOperacao(); i < qntJarros; i++) {
-            estadoAtual->addOperacao();
-            if (estadoAtual->getVolumeJarro(i) < volumes[i]) {
-                int aux = estadoAtual->getVolumeJarro(i);
-                estadoAtual->setVolumeJarro(i, volumes[i]);
-                if (!existeFilho(filho)) {
-                    troca(filho);
-                    estadoAtual->setVolumeJarro(i, aux);
-                    filho->setVolumeJarro(i, volumes[i]);
-                    return true;
-
-                }
-                estadoAtual->setVolumeJarro(i, aux);
-            }
-
-        }
-        return false;
-
-    }
-
-    void Buscas::troca(Estado *filho) {
-        for (int i = 0; i < qntJarros; i++) {
-            filho->setVolumeJarro(i, estadoAtual->getVolumeJarro(i));
-
-        }
-    }
-
-    bool Buscas::esvazia(Estado *filho) {
-
-        for (int i = estadoAtual->getOperacao() - (qntJarros + numPermutacoes); i < qntJarros; i++) {
-            estadoAtual->addOperacao();
-            if (estadoAtual->getVolumeJarro(i) > 0) {
-                int aux = estadoAtual->getVolumeJarro(i);
-                estadoAtual->setVolumeJarro(i, 0);
-                if (!ehIgual(filho) && !existeFilho(filho)) {
-                    troca(filho);
-                    estadoAtual->setVolumeJarro(i, aux);
-                    filho->setVolumeJarro(i, 0);
-                    return true;
-
-                }
-                estadoAtual->setVolumeJarro(i, aux);
-            }
-        }
-        return false;
-
-
-    }
-
-    bool Buscas::ehSolucao(Estado *filho) {
-
-        for (int i = 0; i < qntJarros; i++) {
-            if (filho->getVolumeJarro(i) != objetivo[i])
-                return false;
-        }
-        return true;
-    }
-
-/*
-bool Buscas::maxToMin(Estado *filho) {
-
-    int max, min = filho->getVolumeJarro(0);
-    int posMax, posMin = 0;
+Estado *Buscas::criaCandidato(Estado *pai) {
+    Estado *candidato = new Estado(qntJarros);
     for (int i = 0; i < qntJarros; i++) {
-        if (filho->getVolumeJarro(i) > max) {
-            max = filho->getVolumeJarro(i);
-            posMax = i;
-        }
-        if (filho->getVolumeJarro(i) < min) {
-            min = filho->getVolumeJarro(i);
-            posMin = i;
-        }
+        candidato->setVolumeJarro(i, pai->getVolumeJarro(i));
     }
 
-    return transferirVolumeAux(filho, posMax, posMin);
+    return candidato;
 
 }
+
+
+bool Buscas::enche(Estado *candidato, Estado *pai, Pilha *abertos) {
+
+    for (int i = pai->getOperacao(); i < qntJarros; i++) {
+        pai->addOperacao();
+        if (pai->getVolumeJarro(i) < volumes[i]) {
+            int aux = candidato->getVolumeJarro(i);
+            candidato->setVolumeJarro(i, volumes[i]);
+            if (!abertos->existe(candidato))
+                return true;
+            candidato->setVolumeJarro(i, aux);
+        }
+    }
+    return false;
+}
+
+
+bool Buscas::permutacao2a2(Estado *candidato, Estado *pai, Pilha *abertos) {
+
+    std::vector<bool> v(qntJarros);
+    std::fill(v.end() - 2, v.end(), true);
+/*
+    cout << "aqui||- " << pai->getOperacao() << endl;
 */
 
-    Estado *Buscas::criaFilho() {
-        Estado *filho = new Estado(qntJarros);
-        for (int i = 0; i < qntJarros; i++) {
-            filho->setVolumeJarro(i, estadoAtual->getVolumeJarro(i));
+    int i, j, count = 1;
+    do {
+        i = 0, j = 0;
+        for (int k = 0; k < qntJarros; ++k) {
+            if (v[k]) {
+                i += k;
+                j = k;
+            }
         }
-
-        return filho;
-
-    }
-
-    bool Buscas::ehEstadoInicial() {
-
-        for (int i = 0; i < qntJarros; i++) {
-            if (estadoAtual->getVolumeJarro(i) != 0)
-                return false;
+        if (count > (pai->getOperacao() - qntJarros)) {
+            pai->addOperacao();
+            if (transferirVolumeAux(candidato, abertos, i - j, j))
+                return true;
+            if (transferirVolumeAux(candidato, abertos, j, i - j))
+                return true;
         }
-        return true;
+        count++;
+    } while (next_permutation(v.begin(), v.end()));
 
+
+    return false;
+
+}
+
+bool Buscas::esvazia(Estado *candidato, Estado *pai, Pilha *abertos) {
+    for (int i = pai->getOperacao() - (qntJarros + numPermutacoes); i < qntJarros; i++) {
+        pai->addOperacao();
+        if (pai->getVolumeJarro(i) > 0) {
+            int aux = candidato->getVolumeJarro(i);
+            candidato->setVolumeJarro(i, 0);
+            if (!abertos->existe(candidato))
+                return true;
+            candidato->setVolumeJarro(i, aux);
+        }
     }
+    return false;
 
-    bool Buscas::existeFilho(Estado *filho) {
 
-        Estado *aux = estadoAtual;
-        Estado *aux2 = criaFilho();
-        int i;
-/*
+}
+
+bool Buscas::transferirVolumeAux(Estado *candidato, Pilha *abertos, int i, int j) {
+    int auxI = candidato->getVolumeJarro(i);
+    int auxJ = candidato->getVolumeJarro(j);
+    transferirVolume(candidato, i, j);
+
+    if (abertos->existe(candidato) || (candidato->getVolumeJarro(i) == auxI && candidato->getVolumeJarro(j) == auxJ)) {
+        candidato->setVolumeJarro(i, auxI);
+        candidato->setVolumeJarro(j, auxJ);
+        return false;
+    };
+    return true;
+
+}
+
+void Buscas::transferirVolume(Estado *candidato, int i, int j) {
+
+    if (i != j) {
+        int atualI = candidato->getVolumeJarro(i);
+        int atualJ = candidato->getVolumeJarro(j);
+        if (atualI > 0 && atualJ == 0) {
+            if (atualI >= volumes[j]) {
+                candidato->setVolumeJarro(j, volumes[j]);
+                candidato->setVolumeJarro(i, atualI - volumes[j]);
+            } else if (atualI < volumes[j]) {
+                candidato->setVolumeJarro(j, atualI);
+                candidato->setVolumeJarro(i, 0);
+            }
+        } else if (atualI > 0 && atualJ > 0) {
+            if (volumes[j] - atualJ >= atualI) {
+                candidato->setVolumeJarro(j, atualJ + atualI);
+                candidato->setVolumeJarro(i, 0);
+            } else if (volumes[j] - atualJ < atualI && volumes[j] - atualJ > 0) {
+                int aux = volumes[j] - atualJ;
+                candidato->setVolumeJarro(j, volumes[j]);
+                candidato->setVolumeJarro(i, atualI - aux);
+            }
+
+        }
+    }
+/*    cout << "I--"<<i<<"J--"<<j;
+    imprime(candidato);*/
+
+
+}
+
+bool Buscas::ehSolucao(Estado *candidato) {
+
+    for (int i = 0; i < qntJarros; i++) {
+        if (candidato->getVolumeJarro(i) != objetivo[i])
+            return false;
+    }
+    return true;
+}
+
+
+/*bool Buscas::existeCandidato(Estado *filho) {
+
+    Estado *aux = estadoAtual;
+    Estado *aux2 = criaFilho();
+    int i;
+*//*
        cout << "NO: ";
         imprime(filho);
         cout<<endl;
-*/
+*//*
 
+    for (i = 0; i < qntJarros; i++) {
+        if (aux2->getVolumeJarro(i) != filho->getVolumeJarro(i)) {
+            break;
+        }
+    }
+    if (i == qntJarros) return true;
+
+    while (aux->getPai() != NULL) {
+        aux = aux->getPai();
         for (i = 0; i < qntJarros; i++) {
-            if (aux2->getVolumeJarro(i) != filho->getVolumeJarro(i)) {
+            if (aux->getVolumeJarro(i) != aux2->getVolumeJarro(i)) {
                 break;
             }
         }
         if (i == qntJarros) return true;
-
-        while (aux->getPai() != NULL) {
-            aux = aux->getPai();
-            for (i = 0; i < qntJarros; i++) {
-                if (aux->getVolumeJarro(i) != aux2->getVolumeJarro(i)) {
-                    break;
-                }
-            }
-            if (i == qntJarros) return true;
 //            imprime(aux);
 
 
-        }
-        return false;
-
-
     }
+    return false;
 
-    bool Buscas::permutacao2a2(Estado *filho) {
-        std::vector<bool> v(qntJarros);
-        std::fill(v.end() - 2, v.end(), true);
-        //cout <<"|"<<estadoAtual->getOperacao()<<endl;
-        int i, j, count = 1;
-        do {
-            i = 0, j = 0;
-            for (int k = 0; k < qntJarros; ++k) {
-                if (v[k]) {
-                    i += k;
-                    j = k;
-                }
-            }
-            int aux = estadoAtual->getOperacao();
-            if (count > (estadoAtual->getOperacao() - qntJarros)) {
-                estadoAtual->addOperacao();
-                if (transferirVolumeAux(filho, i - j, j))
-                    return true;
-                if(transferirVolumeAux(filho, j, i - j))
-                    return true;
 
-            }
-            count++;
-        } while (next_permutation(v.begin(), v.end()));
-
-        return false;
-
-    }
+}*/

@@ -32,7 +32,7 @@ int Estado::getQntJarros() const {
 }
 
 void Estado::setVolumeJarro(int i, int vol) {
-        jarros[i] = vol;
+    jarros[i] = vol;
 }
 
 void Estado::dimVolumeJarro(int i, int vol) {

@@ -10,7 +10,7 @@
 class Estado {
 
 
-    public:
+public:
 
     Estado(int tam);
     virtual ~Estado();

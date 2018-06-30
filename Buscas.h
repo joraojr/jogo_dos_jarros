@@ -23,53 +23,25 @@ private:
     int qntJarros;
     int * volumes;
     int * objetivo;
-    Estado *estadoInicial, *estadoAtual;
     int qntOperacoes;
     int numPermutacoes;
+    bool enche(Estado *candidato, Estado* pai,Pilha* abertos);
+    bool permutacao2a2(Estado *candidato, Estado* pai,Pilha* abertos);
+    bool transferirVolumeAux(Estado * candidato,Pilha* abertos, int i, int j);
+    void transferirVolume(Estado * candidato,int i, int j);
+    Estado* criaCandidato(Estado* pai);
+    bool ehSolucao(Estado *candidato);
+    void imprime(Estado* pai);
+    bool esvazia(Estado *candidato, Estado* pai, Pilha* abertos);
 
 public:
     Buscas(int * volumes,int* objetivo, int tam);
     virtual ~Buscas();
-    int *getVolumes() const;
-    int *getObjetivo() const;
-    int getEstadoAtual(int i);
-    int getVolume(int i);
-    void addVolume(int i);
-    void transferirVolume(int i, int j);
-
-    bool transferirVolumeAux(Estado *filho, int i, int j);
-
-    bool profundidade();
-
-    bool largura();
-
-
     bool backtraking();
-
-    bool maxToMin(Estado *filho);
-
-    bool encher(Estado *filho);
-
-    bool ehSolucao(Estado *filho);
-
-    bool ehEstadoInicial();
-
-    bool existeFilho(Estado *filho);
-
-    Estado *criaFilho();
-
-    void troca(Estado *filho);
-
-    bool ehIgual(Estado *filho);
-
-    bool permutacao2a2(Estado *filho);
-
-    bool esvazia(Estado *filho);
-
-    void imprime();
 
 
 };
+
 
 
 #endif //JOGO_DOS_JARROS_BUSCAS_H

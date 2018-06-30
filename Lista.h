@@ -8,6 +8,7 @@
 #include "Estado.h"
 
 
+using namespace std;
 struct No {
     Estado *estadoAtual;
     No *prox;
@@ -24,6 +25,8 @@ public:
     void insere(Estado * filho);
     void remove();
     bool ehVazio();
+    void imprime();
+    void imprimeEstado(Estado *estado);
 };
 
 
