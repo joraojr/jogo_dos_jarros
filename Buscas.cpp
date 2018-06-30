@@ -42,7 +42,7 @@ bool Buscas::backtraking() {
     while (!sucesso && !abertos->ehVazio()) {
         pai = abertos->getTopo();
         candidato = criaCandidato(pai);
-        //imprime(candidato);
+        imprime(candidato);
         if (pai->getOperacao() < qntOperacoes) {
             //  cout <<"aqui||- "<<pai->getOperacao()<<endl;
             if (enche(candidato, pai, abertos) || permutacao2a2(candidato, pai, abertos) ||
@@ -63,6 +63,70 @@ bool Buscas::backtraking() {
     }
    // fechados->imprime();
     return sucesso;
+}
+
+bool Buscas::profundidade(){
+    bool fracasso = false, sucesso = false;
+    Pilha *abertos = new Pilha;
+    Lista *fechados = new Lista;
+    Estado *pai = new Estado(qntJarros);
+    Estado *candidato;
+    abertos->empilha(pai);
+    while (!sucesso && !abertos->ehVazio()){
+        pai = abertos->getTopo();
+        candidato = criaCandidato(pai);
+       // imprime(candidato);
+        abertos->desempilha();
+        fechados->insere(pai);
+        while (pai->getOperacao() < qntOperacoes) {
+            //  cout <<"aqui||- "<<pai->getOperacao()<<endl;
+            if (enche(candidato, pai) || permutacao2a2(candidato, pai) ||
+                esvazia(candidato, pai)) {
+                if (ehSolucao(candidato)) {
+                    sucesso = true;
+                }
+                candidato->setPai(pai);
+                abertos->empilha(candidato);
+                candidato = criaCandidato(pai);
+            }
+
+        }
+    }
+    fechados->imprime();
+    return sucesso;
+
+}
+
+bool Buscas::largura(){
+    bool fracasso = false, sucesso = false;
+    Fila *abertos = new Fila;
+    Lista *fechados = new Lista;
+    Estado *pai = new Estado(qntJarros);
+    Estado *candidato;
+    abertos->insere(pai);
+    while (!sucesso && !abertos->ehVazio()){
+        pai = abertos->getPrimeiro();
+        candidato = criaCandidato(pai);
+        // imprime(candidato);
+        abertos->remove();
+        fechados->insere(pai);
+        while (pai->getOperacao() < qntOperacoes) {
+            //  cout <<"aqui||- "<<pai->getOperacao()<<endl;
+            if (enche(candidato, pai) || permutacao2a2(candidato, pai) ||
+                esvazia(candidato, pai)) {
+                if (ehSolucao(candidato)) {
+                    sucesso = true;
+                }
+                candidato->setPai(pai);
+                abertos->insere(candidato);
+                candidato = criaCandidato(pai);
+            }
+
+        }
+    }
+    fechados->imprime();
+    return sucesso;
+
 }
 
 Estado *Buscas::criaCandidato(Estado *pai) {
@@ -154,6 +218,86 @@ bool Buscas::transferirVolumeAux(Estado *candidato, Pilha *abertos, int i, int j
 
 }
 
+bool Buscas::enche(Estado *candidato, Estado *pai) {
+
+    for (int i = pai->getOperacao(); i < qntJarros; i++) {
+        pai->addOperacao();
+        if (pai->getVolumeJarro(i) < volumes[i]) {
+            int aux = candidato->getVolumeJarro(i);
+            candidato->setVolumeJarro(i, volumes[i]);
+            if (!existeCandidato(candidato,pai))
+                return true;
+            candidato->setVolumeJarro(i, aux);
+        }
+    }
+    return false;
+}
+
+
+bool Buscas::permutacao2a2(Estado *candidato, Estado *pai) {
+
+    std::vector<bool> v(qntJarros);
+    std::fill(v.end() - 2, v.end(), true);
+/*
+    cout << "aqui||- " << pai->getOperacao() << endl;
+*/
+
+    int i, j, count = 1;
+    do {
+        i = 0, j = 0;
+        for (int k = 0; k < qntJarros; ++k) {
+            if (v[k]) {
+                i += k;
+                j = k;
+            }
+        }
+        if (count > (pai->getOperacao() - qntJarros)) {
+            pai->addOperacao();
+            if (transferirVolumeAux(candidato,pai, i - j, j))
+                return true;
+            if (transferirVolumeAux(candidato,pai, j, i - j))
+                return true;
+        }
+        count++;
+    } while (next_permutation(v.begin(), v.end()));
+
+
+    return false;
+
+}
+
+bool Buscas::esvazia(Estado *candidato, Estado *pai) {
+    for (int i = pai->getOperacao() - (qntJarros + numPermutacoes); i < qntJarros; i++) {
+        pai->addOperacao();
+        if (pai->getVolumeJarro(i) > 0) {
+            int aux = candidato->getVolumeJarro(i);
+            candidato->setVolumeJarro(i, 0);
+            if (!existeCandidato(candidato,pai))
+                return true;
+            candidato->setVolumeJarro(i, aux);
+        }
+    }
+    return false;
+
+
+}
+
+bool Buscas::transferirVolumeAux(Estado *candidato, Estado* pai, int i, int j) {
+    int auxI = candidato->getVolumeJarro(i);
+    int auxJ = candidato->getVolumeJarro(j);
+    transferirVolume(candidato, i, j);
+
+    if (existeCandidato(candidato,pai) || (candidato->getVolumeJarro(i) == auxI && candidato->getVolumeJarro(j) == auxJ)) {
+        candidato->setVolumeJarro(i, auxI);
+        candidato->setVolumeJarro(j, auxJ);
+        return false;
+    };
+    return true;
+
+}
+
+
+
 void Buscas::transferirVolume(Estado *candidato, int i, int j) {
 
     if (i != j) {
@@ -195,37 +339,20 @@ bool Buscas::ehSolucao(Estado *candidato) {
 }
 
 
-/*bool Buscas::existeCandidato(Estado *filho) {
+bool Buscas::existeCandidato(Estado *candidato, Estado* pai) {
 
-    Estado *aux = estadoAtual;
-    Estado *aux2 = criaFilho();
+    Estado *aux = pai;
     int i;
-*//*
-       cout << "NO: ";
-        imprime(filho);
-        cout<<endl;
-*//*
-
-    for (i = 0; i < qntJarros; i++) {
-        if (aux2->getVolumeJarro(i) != filho->getVolumeJarro(i)) {
-            break;
-        }
-    }
-    if (i == qntJarros) return true;
-
-    while (aux->getPai() != NULL) {
-        aux = aux->getPai();
-        for (i = 0; i < qntJarros; i++) {
-            if (aux->getVolumeJarro(i) != aux2->getVolumeJarro(i)) {
+    while (aux != NULL) {
+        for ( i = 0; i < qntJarros; i++) {
+            if (aux->getVolumeJarro(i) != candidato->getVolumeJarro(i)) {
                 break;
             }
         }
         if (i == qntJarros) return true;
-//            imprime(aux);
-
-
+        aux = aux->getPai();
     }
     return false;
 
 
-}*/
+}

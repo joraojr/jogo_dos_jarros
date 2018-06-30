@@ -26,18 +26,25 @@ private:
     int qntOperacoes;
     int numPermutacoes;
     bool enche(Estado *candidato, Estado* pai,Pilha* abertos);
+    bool enche(Estado *candidato, Estado* pai);
     bool permutacao2a2(Estado *candidato, Estado* pai,Pilha* abertos);
+    bool permutacao2a2(Estado *candidato, Estado* pai);
     bool transferirVolumeAux(Estado * candidato,Pilha* abertos, int i, int j);
+    bool transferirVolumeAux(Estado * candidato,Estado* pai, int i, int j);
     void transferirVolume(Estado * candidato,int i, int j);
+    bool esvazia(Estado *candidato, Estado* pai, Pilha* abertos);
+    bool esvazia(Estado *candidato, Estado* pai);
+    bool existeCandidato(Estado *candidato,Estado * pai);
     Estado* criaCandidato(Estado* pai);
     bool ehSolucao(Estado *candidato);
     void imprime(Estado* pai);
-    bool esvazia(Estado *candidato, Estado* pai, Pilha* abertos);
 
 public:
     Buscas(int * volumes,int* objetivo, int tam);
     virtual ~Buscas();
     bool backtraking();
+    bool profundidade();
+    bool largura();
 
 
 };
