@@ -42,24 +42,11 @@ bool Buscas::backtraking() {
     while (!sucesso && !abertos->ehVazio()) {
         pai = abertos->getTopo();
         candidato = criaCandidato(pai);
-        imprime(candidato);
+        //imprime(candidato);
         if (pai->getOperacao() < qntOperacoes) {
             //  cout <<"aqui||- "<<pai->getOperacao()<<endl;
-            if (enche(candidato, pai, abertos)) {
-                if (ehSolucao(candidato)) {
-                    sucesso = true;
-                }
-                //aumenta altura
-                abertos->empilha(candidato);
-
-            } else if (permutacao2a2(candidato, pai, abertos)) {
-                if (ehSolucao(candidato)) {
-                    sucesso = true;
-                }
-                //aumenta altura
-                abertos->empilha(candidato);
-            } else if (esvazia(candidato, pai, abertos)) {
-
+            if (enche(candidato, pai, abertos) || permutacao2a2(candidato, pai, abertos) ||
+                esvazia(candidato, pai, abertos)) {
                 if (ehSolucao(candidato)) {
                     sucesso = true;
                 }
@@ -74,7 +61,7 @@ bool Buscas::backtraking() {
         }
 
     }
-    //fechados->imprime();
+   // fechados->imprime();
     return sucesso;
 }
 

@@ -8,7 +8,7 @@ int main() {
     //Estado *estado = new Estado(3);
     int tam = 2;
     int vol[tam] = {3,4};
-    int obj[tam] = {0,3};
+    int obj[tam] = {5,3};
     Buscas *b = new Buscas(vol, obj, tam);
     // b->permutacao2a2();
     /*  b->addVolume(1);
