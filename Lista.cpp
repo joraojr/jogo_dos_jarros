@@ -6,6 +6,7 @@
 
 Lista::Lista() {
     Lista::primeiro = NULL;
+    Lista::tam = 0;
 }
 
 Lista::~Lista() {
@@ -37,10 +38,12 @@ void Lista::insere(Estado *filho) {
     p->estadoAtual = filho;
     p->prox = aux;
     primeiro = p;
+    tam ++;
 }
 
 
 void Lista::insereOrdenadoCusto(Estado *filho) {
+    tam ++;
     bool ok = false;
     No *p = new No, *aux = primeiro;
     p->estadoAtual = filho;
@@ -79,6 +82,7 @@ void Lista::insereOrdenadoCusto(Estado *filho) {
 }
 
 void Lista::insereOrdenadoHeuristica(Estado *filho) {
+    tam ++;
     bool ok = false;
     No *p = new No, *aux = primeiro;
     p->estadoAtual = filho;
@@ -117,6 +121,7 @@ void Lista::insereOrdenadoHeuristica(Estado *filho) {
 }
 
 void Lista::insereOrdenadoFuncao(Estado *filho) {
+    tam ++;
     bool ok = false;
     No *p = new No, *aux = primeiro;
     p->estadoAtual = filho;
@@ -205,4 +210,8 @@ void Lista::remove() {
     primeiro = p->prox;
     delete p;
 
+}
+
+int Lista::getTam(){
+    return Lista::tam;
 }

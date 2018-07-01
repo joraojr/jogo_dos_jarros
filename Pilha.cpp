@@ -6,6 +6,7 @@
 
 Pilha::Pilha() {
     Pilha::topo = NULL;
+    Pilha::tam;
 }
 
 Pilha::~Pilha() {
@@ -30,6 +31,7 @@ void Pilha::empilha(Estado *filho) {
     p->estadoAtual = filho;
     p->prox = topo;
     topo = p;
+    tam ++;
 
 }
 
@@ -40,6 +42,7 @@ void Pilha::desempilha() {
         topo= p->prox;
         delete p; // VERIFICAR
     }
+    tam --;
 }
 
 bool Pilha::ehVazio() {
@@ -59,5 +62,10 @@ bool Pilha::existe(Estado * filho){
         p = p->prox;
     }
     return false;
+
+}
+
+int Pilha::getTam(){
+    return Pilha::tam;
 
 }

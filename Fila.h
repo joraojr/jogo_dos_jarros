@@ -13,6 +13,7 @@ class Fila{
 private:
     No *primeiro;
     No *ultimo;
+    int tam;
 public:
     Fila();
     virtual ~Fila();
@@ -20,6 +21,7 @@ public:
     void insere(Estado * filho);
     void remove();
     bool ehVazio();
+    int getTam();
 
 };
 

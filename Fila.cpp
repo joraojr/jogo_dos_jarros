@@ -7,6 +7,7 @@
 Fila::Fila() {
     Fila::primeiro = NULL;
     Fila::ultimo = NULL;
+    Fila::tam = 0;
 }
 
 Fila::~Fila() {
@@ -38,6 +39,7 @@ void Fila::insere(Estado *filho) {
     No * p = new No();
     p->estadoAtual = filho;
     p->prox = NULL;
+    tam ++;
 
     if(ultimo == NULL)
         primeiro = p;
@@ -49,7 +51,7 @@ void Fila::insere(Estado *filho) {
 
 void Fila::remove() {
     No * p;
-
+    tam --;
     if(primeiro != NULL){
         p = primeiro;
         primeiro = primeiro->prox;
@@ -59,5 +61,10 @@ void Fila::remove() {
 
         delete p;
     }
+
+}
+
+int Fila::getTam(){
+    return Fila::tam;
 
 }

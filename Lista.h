@@ -18,10 +18,12 @@ struct No {
 class Lista {
 private:
     No *primeiro;
+    int tam;
 public:
     Lista();
     virtual ~Lista();
     Estado* getPrimeiro();
+    int getTam();
     void insere(Estado * filho);
     void insereOrdenadoCusto(Estado * filho);
     void insereOrdenadoHeuristica(Estado * filho);

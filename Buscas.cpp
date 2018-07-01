@@ -63,6 +63,8 @@ bool Buscas::backtraking() {
 
     }
     fechados->imprime();
+    cout << "Abertos: " <<abertos->getTam()<<endl;
+    cout << "Fechado: " << fechados->getTam()<<endl;
     return sucesso;
 }
 
@@ -94,6 +96,8 @@ bool Buscas::profundidade() {
         }
     }
     fechados->imprime();
+    cout << "Abertos: " <<abertos->getTam()<<endl;
+    cout << "Fechado: " << fechados->getTam()<<endl;
     return sucesso;
 
 }
@@ -126,6 +130,8 @@ bool Buscas::largura() {
         }
     }
     fechados->imprime();
+    cout << "Abertos: " <<abertos->getTam()<<endl;
+    cout << "Fechado: " << fechados->getTam()<<endl;
     return sucesso;
 
 }
@@ -161,8 +167,10 @@ bool Buscas::ordenada() {
             }
         }
     }
-    cout<<"Custo da solução: "<<custo;
     fechados->imprime();
+    cout<<"Custo da solução: "<<custo;
+    cout << "Abertos: " <<abertos->getTam()<<endl;
+    cout << "Fechado: " << fechados->getTam()<<endl;
     return sucesso;
 }
 
@@ -217,6 +225,9 @@ bool Buscas::gulosa() {
         }
     }
     fechados->imprime();
+    cout<<"Heurística: -1";
+    cout << "Abertos: " <<abertos->getTam()<<endl;
+    cout << "Fechado: " << fechados->getTam()<<endl;
     return  sucesso;
 }
 
@@ -250,7 +261,6 @@ bool Buscas:: A() {
         abertos->remove();
         fechados->insere(pai);
         if (ehSolucao(candidato)) {
-            imprimeFuncao(pai);
             sucesso = true;
         } else {
             while (pai->getOperacao() < qntOperacoes) {
@@ -267,6 +277,9 @@ bool Buscas:: A() {
 
     }
     fechados->imprime();
+    imprimeFuncao(pai);
+    cout << "Abertos: " <<abertos->getTam()<<endl;
+    cout << "Fechado: " << fechados->getTam()<<endl;
     return  sucesso;
 }
 

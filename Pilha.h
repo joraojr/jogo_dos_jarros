@@ -12,11 +12,12 @@
 class Pilha {
 private:
     No *topo;
-    int n;
+    int tam;
 public:
     Pilha();
     virtual ~Pilha();
     Estado* getTopo();
+    int getTam();
     void empilha(Estado * filho);
     void desempilha();
     bool ehVazio();
