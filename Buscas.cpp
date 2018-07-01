@@ -57,7 +57,7 @@ bool Buscas::backtraking() {
     while (!sucesso && !abertos->ehVazio()) {
         pai = abertos->getTopo();
         candidato = criaCandidato(pai);
-        //   imprime(candidato);
+           imprime(candidato);
         if (pai->getOperacao() < qntOperacoes) {
             //  cout <<"aqui||- "<<pai->getOperacao()<<endl;
             if (enche(candidato, pai, abertos) || permutacao2a2(candidato, pai, abertos) ||
@@ -91,6 +91,10 @@ bool Buscas::profundidade() {
     Estado *pai = new Estado(qntJarros);
     Estado *candidato;
     abertos->empilha(pai);
+    if (ehSolucao(pai)) {
+        cout << "Altura:" << 0 <<endl;
+        sucesso = true;
+    }
     while (!sucesso && !abertos->ehVazio()) {
         pai = abertos->getTopo();
         candidato = criaCandidato(pai);
@@ -127,6 +131,10 @@ bool Buscas::largura() {
     Estado *pai = new Estado(qntJarros);
     Estado *candidato;
     abertos->insere(pai);
+    if (ehSolucao(pai)) {
+        cout << "Altura:" << 0 <<endl;
+        sucesso = true;
+    }
     while (!sucesso && !abertos->ehVazio()) {
         pai = abertos->getPrimeiro();
         candidato = criaCandidato(pai);
@@ -189,7 +197,7 @@ bool Buscas::ordenada() {
         }
     }
 //    fechados->imprime();
-    cout<<"Valor da custo: "<<custo;
+    cout<<"Valor da custo: "<<custo<<endl;
     cout << "Abertos: " <<abertos->getTam()<<endl;
     cout << "Fechado: " << fechados->getTam()<<endl;
     return sucesso;
@@ -368,7 +376,7 @@ bool Buscas::enche(Estado *candidato, Estado *pai, Pilha *abertos) {
 bool Buscas::permutacao2a2(Estado *candidato, Estado *pai, Pilha *abertos) {
 
     std::vector<bool> v(qntJarros);
-    std::fill(v.end() - 2, v.end(), true);
+    std::fill(v.begin(), v.begin() + 2, true);
 /*
     cout << "aqui||- " << pai->getOperacao() << endl;
 */
@@ -390,7 +398,7 @@ bool Buscas::permutacao2a2(Estado *candidato, Estado *pai, Pilha *abertos) {
                 return true;
         }
         count++;
-    } while (next_permutation(v.begin(), v.end()));
+    } while (prev_permutation(v.begin(), v.end()));
 
 
     return false;
@@ -448,7 +456,7 @@ bool Buscas::enche(Estado *candidato, Estado *pai) {
 bool Buscas::permutacao2a2(Estado *candidato, Estado *pai) {
 
     std::vector<bool> v(qntJarros);
-    std::fill(v.end() - 2, v.end(), true);
+    std::fill(v.begin(), v.begin() + 2, true);
 
     int i, j, count = 1;
     do {
@@ -471,7 +479,7 @@ bool Buscas::permutacao2a2(Estado *candidato, Estado *pai) {
             }
         }
         count++;
-    } while (next_permutation(v.begin(), v.end()));
+    } while (prev_permutation(v.begin(), v.end()));
 
 
     return false;

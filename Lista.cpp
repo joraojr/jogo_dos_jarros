@@ -209,6 +209,7 @@ void Lista::remove() {
     No *p = primeiro;
     primeiro = p->prox;
     delete p;
+    tam --;
 
 }
 
