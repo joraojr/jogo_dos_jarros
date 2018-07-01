@@ -44,6 +44,7 @@ private:
     void imprimeHeuristica(Estado* solucao);
     void calculaFuncao(Estado *candidato);
     void imprimeFuncao(Estado* solucao);
+    int calculaAltura(Estado* solucao);
 
 
 
@@ -56,6 +57,7 @@ public:
     bool ordenada();
     bool gulosa();
     bool A();
+    bool IDA();
 
 
     };

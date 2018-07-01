@@ -31,6 +31,17 @@ void Buscas::imprime(Estado *pai) {
 
 }
 
+int Buscas::calculaAltura(Estado *solucao) {
+    int altura = 0;
+    Estado *p = solucao;
+    while (p->getPai() != NULL) {
+        altura ++;
+        p= p->getPai();
+    }
+    return altura;
+
+}
+
 
 bool Buscas::backtraking() {
     bool fracasso = false, sucesso = false;
@@ -49,7 +60,9 @@ bool Buscas::backtraking() {
                 esvazia(candidato, pai, abertos)) {
                 if (ehSolucao(candidato)) {
                     fechados->insere(candidato);
+                    cout << "Altura:" << abertos->getTam()<<endl;
                     sucesso = true;
+                    break;
                 }
                 //aumenta altura
                 abertos->empilha(candidato);
@@ -62,7 +75,7 @@ bool Buscas::backtraking() {
         }
 
     }
-    fechados->imprime();
+    //fechados->imprime();
     cout << "Abertos: " <<abertos->getTam()<<endl;
     cout << "Fechado: " << fechados->getTam()<<endl;
     return sucesso;
@@ -86,7 +99,9 @@ bool Buscas::profundidade() {
             if (enche(candidato, pai) || permutacao2a2(candidato, pai) ||
                 esvazia(candidato, pai)) {
                 if (ehSolucao(candidato)) {
+                    cout << "Altura:" << calculaAltura(pai)<<endl;
                     sucesso = true;
+                    break;
                 }
                 candidato->setPai(pai);
                 abertos->empilha(candidato);
@@ -95,7 +110,7 @@ bool Buscas::profundidade() {
 
         }
     }
-    fechados->imprime();
+//    fechados->imprime();
     cout << "Abertos: " <<abertos->getTam()<<endl;
     cout << "Fechado: " << fechados->getTam()<<endl;
     return sucesso;
@@ -120,7 +135,9 @@ bool Buscas::largura() {
             if (enche(candidato, pai) || permutacao2a2(candidato, pai) ||
                 esvazia(candidato, pai)) {
                 if (ehSolucao(candidato)) {
+                    cout << "Altura:" << calculaAltura(pai)<<endl;
                     sucesso = true;
+                    break;
                 }
                 candidato->setPai(pai);
                 abertos->insere(candidato);
@@ -129,7 +146,7 @@ bool Buscas::largura() {
 
         }
     }
-    fechados->imprime();
+//    fechados->imprime();
     cout << "Abertos: " <<abertos->getTam()<<endl;
     cout << "Fechado: " << fechados->getTam()<<endl;
     return sucesso;
@@ -153,6 +170,7 @@ bool Buscas::ordenada() {
         cout << "Custo :::" << candidato->getCusto()<<endl;*/
         if (ehSolucao(candidato)) {
             sucesso = true;
+            cout << "Altura:" << calculaAltura(pai)<<endl;
             custo = candidato->getCusto();
         } else {
             while (pai->getOperacao() < qntOperacoes) {
@@ -167,8 +185,8 @@ bool Buscas::ordenada() {
             }
         }
     }
-    fechados->imprime();
-    cout<<"Custo da solução: "<<custo;
+//    fechados->imprime();
+    cout<<"Valor da custo: "<<custo;
     cout << "Abertos: " <<abertos->getTam()<<endl;
     cout << "Fechado: " << fechados->getTam()<<endl;
     return sucesso;
@@ -183,7 +201,7 @@ void Buscas::imprimeHeuristica(Estado* solucao){
         p= p->getPai();
     }
 
-    cout<< "Custo da Heuristica: "<<heuristica<<endl;
+    cout<< "Valor da Heuristica: "<<heuristica<<endl;
 }
 
 void Buscas::calculaHeuristica(Estado *candidato) {
@@ -208,7 +226,7 @@ bool Buscas::gulosa() {
         fechados->insere(pai);
         if (ehSolucao(candidato)) {
             sucesso = true;
-            imprimeHeuristica(pai);
+            cout << "Altura:" << calculaAltura(pai)<<endl;
         } else {
             while (pai->getOperacao() < qntOperacoes) {
                 if (enche(candidato, pai) || permutacao2a2(candidato, pai) ||
@@ -224,8 +242,8 @@ bool Buscas::gulosa() {
 
         }
     }
-    fechados->imprime();
-    cout<<"Heurística: -1";
+//    fechados->imprime();
+    imprimeHeuristica(pai);
     cout << "Abertos: " <<abertos->getTam()<<endl;
     cout << "Fechado: " << fechados->getTam()<<endl;
     return  sucesso;
@@ -240,7 +258,7 @@ void Buscas::imprimeFuncao(Estado* solucao){
         p= p->getPai();
     }
 
-    cout<< "Custo da Funcao: "<<funcao<<endl;
+    cout<< "Valor da Funcao: "<<funcao<<endl;
 }
 
 void Buscas::calculaFuncao(Estado *candidato) {
@@ -261,6 +279,7 @@ bool Buscas:: A() {
         abertos->remove();
         fechados->insere(pai);
         if (ehSolucao(candidato)) {
+            cout << "Altura:" << calculaAltura(pai)<<endl;
             sucesso = true;
         } else {
             while (pai->getOperacao() < qntOperacoes) {
@@ -276,12 +295,26 @@ bool Buscas:: A() {
         }
 
     }
-    fechados->imprime();
+//    fechados->imprime();
     imprimeFuncao(pai);
     cout << "Abertos: " <<abertos->getTam()<<endl;
     cout << "Fechado: " << fechados->getTam()<<endl;
     return  sucesso;
 }
+
+bool Buscas::IDA() {
+    bool sucesso = false;
+    Lista *abertos = new Lista;
+    Lista *fechados = new Lista;
+    Estado *pai = new Estado(qntJarros);
+    calculaHeuristica(pai);
+    Estado *candidato;
+    abertos->insereOrdenadoFuncao(pai);
+
+    while (!sucesso && !abertos->ehVazio()) {
+    }
+}
+
 
 
 Estado *Buscas::criaCandidato(Estado *pai) {
