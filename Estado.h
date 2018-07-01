@@ -28,12 +28,17 @@ public:
     int getCusto() const;
     void setCusto(int custo);
     void addCusto(int custo);
+    int getHeuristica() const;
+    void setHeuristica(int heuristica);
+    void addHeuristica(int heuristica);
+
 
 private:
     int *jarros;
     int qntJarros;
     int operacao;
     int custo;
+    int heuristica;
     Estado *pai;
 
 

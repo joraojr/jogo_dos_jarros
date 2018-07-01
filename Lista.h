@@ -23,7 +23,8 @@ public:
     virtual ~Lista();
     Estado* getPrimeiro();
     void insere(Estado * filho);
-    void insereOrdenado(Estado * filho);
+    void insereOrdenadoCusto(Estado * filho);
+    void insereOrdenadoHeuristica(Estado * filho);
     void remove();
     Estado* getMenorCusto();
     bool ehVazio();

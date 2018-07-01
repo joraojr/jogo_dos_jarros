@@ -13,6 +13,7 @@ Estado::Estado(int tam) {
     operacao = 0;
     pai = NULL;
     custo = 0;
+    heuristica =0;
 }
 
 Estado::~Estado() {
@@ -75,4 +76,17 @@ void Estado::setCusto(int custo) {
 void Estado::addCusto(int custo) {
     Estado::custo = Estado::custo + custo;
 }
+
+int Estado::getHeuristica() const {
+    return heuristica;
+}
+
+void Estado::setHeuristica(int heuristica) {
+    Estado::heuristica = heuristica;
+}
+
+void Estado::addHeuristica(int heuristica) {
+    Estado::heuristica += heuristica;
+}
+
 

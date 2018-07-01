@@ -12,6 +12,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
@@ -39,14 +40,17 @@ private:
     void criaCandidatos(Estado ** candidatos);
     bool ehSolucao(Estado *candidato);
     void imprime(Estado* pai);
+    void calculaHeuristica(Estado * candidato);
+    void imprimeHeuristica(Estado* solucao);
 
-public:
+        public:
     Buscas(int * volumes,int* objetivo, int tam);
     virtual ~Buscas();
     bool backtraking();
     bool profundidade();
     bool largura();
     bool ordenada();
+    bool gulosa();
 
 
     };
