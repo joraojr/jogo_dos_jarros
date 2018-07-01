@@ -50,6 +50,10 @@ bool Buscas::backtraking() {
     Estado *pai = new Estado(qntJarros);
     Estado *candidato;
     abertos->empilha(pai);
+    if (ehSolucao(pai)) {
+        cout << "Altura:" << 0 <<endl;
+        sucesso = true;
+    }
     while (!sucesso && !abertos->ehVazio()) {
         pai = abertos->getTopo();
         candidato = criaCandidato(pai);
@@ -59,7 +63,6 @@ bool Buscas::backtraking() {
             if (enche(candidato, pai, abertos) || permutacao2a2(candidato, pai, abertos) ||
                 esvazia(candidato, pai, abertos)) {
                 if (ehSolucao(candidato)) {
-                    fechados->insere(candidato);
                     cout << "Altura:" << abertos->getTam()<<endl;
                     sucesso = true;
                     break;
@@ -303,15 +306,27 @@ bool Buscas:: A() {
 }
 
 bool Buscas::IDA() {
-    bool sucesso = false;
+    bool sucesso = false, fracasso = false;
     Lista *abertos = new Lista;
     Lista *fechados = new Lista;
     Estado *pai = new Estado(qntJarros);
     calculaHeuristica(pai);
+    calculaFuncao(pai);
+    int patamar = pai->getFuncao(), patamar_antigo = -1;
     Estado *candidato;
     abertos->insereOrdenadoFuncao(pai);
+    while (!sucesso && !fracasso) {
+       if(patamar_antigo== patamar){
+          fracasso = true;
+       } else{
+           if(ehSolucao(pai) && pai->getFuncao() <= patamar){
+               sucesso = true;
+           } else{
+               if(pai->getFuncao() > patamar){
 
-    while (!sucesso && !abertos->ehVazio()) {
+               }
+           }
+       }
     }
 }
 
