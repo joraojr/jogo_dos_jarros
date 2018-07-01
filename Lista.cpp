@@ -116,6 +116,45 @@ void Lista::insereOrdenadoHeuristica(Estado *filho) {
     }
 }
 
+void Lista::insereOrdenadoFuncao(Estado *filho) {
+    bool ok = false;
+    No *p = new No, *aux = primeiro;
+    p->estadoAtual = filho;
+    p->prox = NULL;
+    if (primeiro == NULL) {
+        primeiro = p;
+    } else if (aux->prox == NULL) {
+        if (aux->estadoAtual->getFuncao() <= p->estadoAtual->getFuncao()) {
+            aux->prox = p;
+        } else {
+            p->prox = aux;
+            primeiro = p;
+        }
+    } else {
+        No* aux2 = aux;
+        while (aux->prox != NULL && aux->estadoAtual->getFuncao() <= p->estadoAtual->getFuncao()) {
+            if (aux->prox->estadoAtual->getFuncao() > p->estadoAtual->getFuncao()) {
+                No *p1 = aux->prox;
+                aux->prox = p;
+                p->prox = p1;
+                ok = true;
+                break;
+            }
+            aux2 = aux;
+            aux = aux->prox;
+        }
+        if(!ok) {
+            if (aux->prox == NULL && aux->estadoAtual->getFuncao() <= p->estadoAtual->getFuncao()) {
+                aux->prox = p;
+            } else {
+                p->prox = aux;
+                primeiro = p;
+            }
+        }
+    }
+}
+
+
 
 void Lista::imprimeEstado(Estado *pai) {
     int qntJarros = pai->getQntJarros();

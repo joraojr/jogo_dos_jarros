@@ -42,8 +42,12 @@ private:
     void imprime(Estado* pai);
     void calculaHeuristica(Estado * candidato);
     void imprimeHeuristica(Estado* solucao);
+    void calculaFuncao(Estado *candidato);
+    void imprimeFuncao(Estado* solucao);
 
-        public:
+
+
+public:
     Buscas(int * volumes,int* objetivo, int tam);
     virtual ~Buscas();
     bool backtraking();
@@ -51,6 +55,7 @@ private:
     bool largura();
     bool ordenada();
     bool gulosa();
+    bool A();
 
 
     };

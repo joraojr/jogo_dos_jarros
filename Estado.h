@@ -31,6 +31,8 @@ public:
     int getHeuristica() const;
     void setHeuristica(int heuristica);
     void addHeuristica(int heuristica);
+    int getFuncao() const ;
+    void setFuncao(int funcao);
 
 
 private:
@@ -39,6 +41,7 @@ private:
     int operacao;
     int custo;
     int heuristica;
+    int funcao;
     Estado *pai;
 
 

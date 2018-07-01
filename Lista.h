@@ -25,6 +25,7 @@ public:
     void insere(Estado * filho);
     void insereOrdenadoCusto(Estado * filho);
     void insereOrdenadoHeuristica(Estado * filho);
+    void insereOrdenadoFuncao(Estado *filho);
     void remove();
     Estado* getMenorCusto();
     bool ehVazio();

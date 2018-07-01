@@ -219,6 +219,58 @@ bool Buscas::gulosa() {
     fechados->imprime();
     return  sucesso;
 }
+
+void Buscas::imprimeFuncao(Estado* solucao){
+    int funcao= 0;
+    Estado* p = solucao;
+
+    while (p != NULL) {
+        funcao += p->getFuncao();
+        p= p->getPai();
+    }
+
+    cout<< "Custo da Funcao: "<<funcao<<endl;
+}
+
+void Buscas::calculaFuncao(Estado *candidato) {
+    candidato->setFuncao(candidato->getCusto() + candidato->getHeuristica());
+}
+
+bool Buscas:: A() {
+    bool sucesso = false;
+    Lista *abertos = new Lista;
+    Lista *fechados = new Lista;
+    Estado *pai = new Estado(qntJarros);
+    calculaHeuristica(pai);
+    Estado *candidato;
+    abertos->insereOrdenadoFuncao(pai);
+    while (!sucesso && !abertos->ehVazio()) {
+        pai = abertos->getPrimeiro();
+        candidato = criaCandidato(pai);
+        abertos->remove();
+        fechados->insere(pai);
+        if (ehSolucao(candidato)) {
+            imprimeFuncao(pai);
+            sucesso = true;
+        } else {
+            while (pai->getOperacao() < qntOperacoes) {
+                if (enche(candidato, pai) || permutacao2a2(candidato, pai) ||
+                    esvazia(candidato, pai)) {
+                    candidato->setPai(pai);
+                    calculaHeuristica(candidato);
+                    calculaFuncao(candidato);
+                    abertos->insereOrdenadoFuncao(candidato);
+                    candidato = criaCandidato(pai);
+                }
+            }
+        }
+
+    }
+    fechados->imprime();
+    return  sucesso;
+}
+
+
 Estado *Buscas::criaCandidato(Estado *pai) {
     Estado *candidato = new Estado(qntJarros);
     for (int i = 0; i < qntJarros; i++) {
