@@ -35,8 +35,8 @@ int Buscas::calculaAltura(Estado *solucao) {
     int altura = 0;
     Estado *p = solucao;
     while (p->getPai() != NULL) {
-        altura ++;
-        p= p->getPai();
+        altura++;
+        p = p->getPai();
     }
     return altura;
 
@@ -51,19 +51,19 @@ bool Buscas::backtraking() {
     Estado *candidato;
     abertos->empilha(pai);
     if (ehSolucao(pai)) {
-        cout << "Altura:" << 0 <<endl;
+        cout << "Altura:" << 0 << endl;
         sucesso = true;
     }
     while (!sucesso && !abertos->ehVazio()) {
         pai = abertos->getTopo();
         candidato = criaCandidato(pai);
-           imprime(candidato);
+//           imprime(candidato);
         if (pai->getOperacao() < qntOperacoes) {
             //  cout <<"aqui||- "<<pai->getOperacao()<<endl;
             if (enche(candidato, pai, abertos) || permutacao2a2(candidato, pai, abertos) ||
                 esvazia(candidato, pai, abertos)) {
                 if (ehSolucao(candidato)) {
-                    cout << "Altura:" << abertos->getTam()<<endl;
+                    cout << "Altura:" << abertos->getTam() << endl;
                     sucesso = true;
                     break;
                 }
@@ -79,8 +79,8 @@ bool Buscas::backtraking() {
 
     }
     //fechados->imprime();
-    cout << "Abertos: " <<abertos->getTam()<<endl;
-    cout << "Fechado: " << fechados->getTam()<<endl;
+    cout << "Abertos: " << abertos->getTam() << endl;
+    cout << "Fechado: " << fechados->getTam() << endl;
     return sucesso;
 }
 
@@ -92,7 +92,7 @@ bool Buscas::profundidade() {
     Estado *candidato;
     abertos->empilha(pai);
     if (ehSolucao(pai)) {
-        cout << "Altura:" << 0 <<endl;
+        cout << "Altura:" << 0 << endl;
         sucesso = true;
     }
     while (!sucesso && !abertos->ehVazio()) {
@@ -106,7 +106,7 @@ bool Buscas::profundidade() {
             if (enche(candidato, pai) || permutacao2a2(candidato, pai) ||
                 esvazia(candidato, pai)) {
                 if (ehSolucao(candidato)) {
-                    cout << "Altura:" << calculaAltura(pai)<<endl;
+                    cout << "Altura:" << calculaAltura(pai) << endl;
                     sucesso = true;
                     break;
                 }
@@ -118,8 +118,8 @@ bool Buscas::profundidade() {
         }
     }
 //    fechados->imprime();
-    cout << "Abertos: " <<abertos->getTam()<<endl;
-    cout << "Fechado: " << fechados->getTam()<<endl;
+    cout << "Abertos: " << abertos->getTam() << endl;
+    cout << "Fechado: " << fechados->getTam() << endl;
     return sucesso;
 
 }
@@ -132,7 +132,7 @@ bool Buscas::largura() {
     Estado *candidato;
     abertos->insere(pai);
     if (ehSolucao(pai)) {
-        cout << "Altura:" << 0 <<endl;
+        cout << "Altura:" << 0 << endl;
         sucesso = true;
     }
     while (!sucesso && !abertos->ehVazio()) {
@@ -146,7 +146,7 @@ bool Buscas::largura() {
             if (enche(candidato, pai) || permutacao2a2(candidato, pai) ||
                 esvazia(candidato, pai)) {
                 if (ehSolucao(candidato)) {
-                    cout << "Altura:" << calculaAltura(pai)<<endl;
+                    cout << "Altura:" << calculaAltura(pai) << endl;
                     sucesso = true;
                     break;
                 }
@@ -158,8 +158,8 @@ bool Buscas::largura() {
         }
     }
 //    fechados->imprime();
-    cout << "Abertos: " <<abertos->getTam()<<endl;
-    cout << "Fechado: " << fechados->getTam()<<endl;
+    cout << "Abertos: " << abertos->getTam() << endl;
+    cout << "Fechado: " << fechados->getTam() << endl;
     return sucesso;
 
 }
@@ -181,12 +181,12 @@ bool Buscas::ordenada() {
         cout << "Custo :::" << candidato->getCusto()<<endl;*/
         if (ehSolucao(candidato)) {
             sucesso = true;
-            cout << "Altura:" << calculaAltura(pai)<<endl;
+            cout << "Altura:" << calculaAltura(pai) << endl;
             custo = candidato->getCusto();
         } else {
             while (pai->getOperacao() < qntOperacoes) {
                 if (enche(candidato, pai) || permutacao2a2(candidato, pai) ||
-                    esvazia(candidato, pai)){
+                    esvazia(candidato, pai)) {
                     candidato->setPai(pai);
 /*                    imprime(candidato);
                     cout << "Custo :::" << candidato->getCusto()<<endl;*/
@@ -197,33 +197,59 @@ bool Buscas::ordenada() {
         }
     }
 //    fechados->imprime();
-    cout<<"Valor da custo: "<<custo<<endl;
-    cout << "Abertos: " <<abertos->getTam()<<endl;
-    cout << "Fechado: " << fechados->getTam()<<endl;
+    cout << "Valor da custo: " << custo << endl;
+    cout << "Abertos: " << abertos->getTam() << endl;
+    cout << "Fechado: " << fechados->getTam() << endl;
     return sucesso;
 }
 
-void Buscas::imprimeHeuristica(Estado* solucao){
-    int heuristica= 0;
-    Estado* p = solucao;
+void Buscas::imprimeHeuristica(Estado *solucao) {
+    int heuristica = 0;
+    Estado *p = solucao;
 
     while (p != NULL) {
-            heuristica += p->getHeuristica();
-        p= p->getPai();
+        heuristica += p->getHeuristica();
+        p = p->getPai();
     }
 
-    cout<< "Valor da Heuristica: "<<heuristica<<endl;
+    cout << "Valor da Heuristica: " << heuristica << endl;
 }
 
 void Buscas::calculaHeuristica(Estado *candidato) {
+
+/*
+     //HEURISTICA 1
     for(int i = 0 ;i <qntJarros; i ++){
         candidato->addHeuristica(abs(candidato->getVolumeJarro(i) - objetivo[i]));
     }
-//    cout << "VALOR:"<<candidato->getHeuristica()<<endl;
+*/
+
+    //HEURISTICA 2
+    for (int i = 0; i < qntJarros; i++){
+        if (candidato->getVolumeJarro(i) > objetivo[i]) {
+            candidato->addHeuristica(2);
+        }
+        else if (candidato->getVolumeJarro(i) < objetivo[i]) {
+            candidato->addHeuristica(1);
+        }
+    }
+
+
+/*
+    cout << "VALOR:"<<candidato->getHeuristica()<<endl;
+*/
+}
+
+bool Buscas::ehConsiste(Estado *candidato) {
+    if (candidato->getPai()->getHeuristica() <= (candidato->getPai()->getOperacao() + candidato->getHeuristica())) {
+        return true;
+    }
+    return false;
 }
 
 bool Buscas::gulosa() {
-    bool sucesso = false;
+    int custo = -1;
+    bool sucesso = false, consistente = true;
     Lista *abertos = new Lista;
     Lista *fechados = new Lista;
     Estado *pai = new Estado(qntJarros);
@@ -237,15 +263,19 @@ bool Buscas::gulosa() {
         fechados->insere(pai);
         if (ehSolucao(candidato)) {
             sucesso = true;
-            cout << "Altura:" << calculaAltura(pai)<<endl;
+            cout << "Altura:" << calculaAltura(pai) << endl;
+            custo = candidato->getCusto();
         } else {
             while (pai->getOperacao() < qntOperacoes) {
                 if (enche(candidato, pai) || permutacao2a2(candidato, pai) ||
                     esvazia(candidato, pai)) {
                     candidato->setPai(pai);
+                    calculaHeuristica(candidato);
+                    if (consistente) {
+                        consistente = ehConsiste(candidato);
+                    }
 /*                    imprime(candidato);
                     cout << "Custo :::" << candidato->getCusto()<<endl;*/
-                    calculaHeuristica(candidato);
                     abertos->insereOrdenadoHeuristica(candidato);
                     candidato = criaCandidato(pai);
                 }
@@ -255,29 +285,32 @@ bool Buscas::gulosa() {
     }
 //    fechados->imprime();
     imprimeHeuristica(pai);
-    cout << "Abertos: " <<abertos->getTam()<<endl;
-    cout << "Fechado: " << fechados->getTam()<<endl;
-    return  sucesso;
+    cout << "Valor da custo: " << custo << endl;
+    cout << "Eh consistente: " << consistente << endl;
+    cout << "Abertos: " << abertos->getTam() << endl;
+    cout << "Fechado: " << fechados->getTam() << endl;
+    return sucesso;
 }
 
-void Buscas::imprimeFuncao(Estado* solucao){
-    int funcao= 0;
-    Estado* p = solucao;
+void Buscas::imprimeFuncao(Estado *solucao) {
+    int funcao = 0;
+    Estado *p = solucao;
 
     while (p != NULL) {
         funcao += p->getFuncao();
-        p= p->getPai();
+        p = p->getPai();
     }
 
-    cout<< "Valor da Funcao: "<<funcao<<endl;
+    cout << "Valor da Funcao: " << funcao << endl;
 }
 
 void Buscas::calculaFuncao(Estado *candidato) {
     candidato->setFuncao(candidato->getCusto() + candidato->getHeuristica());
 }
 
-bool Buscas:: A() {
-    bool sucesso = false;
+bool Buscas::A() {
+    int custo = -1;
+    bool sucesso = false, consistente = true;
     Lista *abertos = new Lista;
     Lista *fechados = new Lista;
     Estado *pai = new Estado(qntJarros);
@@ -290,8 +323,9 @@ bool Buscas:: A() {
         abertos->remove();
         fechados->insere(pai);
         if (ehSolucao(candidato)) {
-            cout << "Altura:" << calculaAltura(pai)<<endl;
+            cout << "Altura:" << calculaAltura(pai) << endl;
             sucesso = true;
+            custo = candidato->getCusto();
         } else {
             while (pai->getOperacao() < qntOperacoes) {
                 if (enche(candidato, pai) || permutacao2a2(candidato, pai) ||
@@ -299,6 +333,9 @@ bool Buscas:: A() {
                     candidato->setPai(pai);
                     calculaHeuristica(candidato);
                     calculaFuncao(candidato);
+                    if (consistente) {
+                        consistente = ehConsiste(candidato);
+                    }
                     abertos->insereOrdenadoFuncao(candidato);
                     candidato = criaCandidato(pai);
                 }
@@ -308,36 +345,70 @@ bool Buscas:: A() {
     }
 //    fechados->imprime();
     imprimeFuncao(pai);
-    cout << "Abertos: " <<abertos->getTam()<<endl;
-    cout << "Fechado: " << fechados->getTam()<<endl;
-    return  sucesso;
+    cout << "Valor da custo: " << custo << endl;
+    cout << "Eh consistente: " << consistente << endl;
+    cout << "Abertos: " << abertos->getTam() << endl;
+    cout << "Fechado: " << fechados->getTam() << endl;
+    return sucesso;
 }
 
+
 bool Buscas::IDA() {
+    int custo = -1;
     bool sucesso = false, fracasso = false;
-    Lista *abertos = new Lista;
-    Lista *fechados = new Lista;
+    Pilha *abertos = new Pilha;
+    Lista *descartados = new Lista;
     Estado *pai = new Estado(qntJarros);
     calculaHeuristica(pai);
     calculaFuncao(pai);
     int patamar = pai->getFuncao(), patamar_antigo = -1;
     Estado *candidato;
-    abertos->insereOrdenadoFuncao(pai);
+    abertos->empilha(pai);
     while (!sucesso && !fracasso) {
-       if(patamar_antigo== patamar){
-          fracasso = true;
-       } else{
-           if(ehSolucao(pai) && pai->getFuncao() <= patamar){
-               sucesso = true;
-           } else{
-               if(pai->getFuncao() > patamar){
-
-               }
-           }
-       }
+        candidato = criaCandidato(pai);
+        cout<< pai->getOperacao()<<endl;
+        imprime(pai);
+        if (patamar_antigo == patamar) {
+            fracasso = true;
+        } else {
+            if (ehSolucao(pai) && pai->getFuncao() <= patamar) {
+                custo = pai->getCusto();
+                sucesso = true;
+            } else {
+                if (pai->getFuncao() > patamar) {
+                    descartados->insere(pai);
+                    abertos->desempilha();
+                    pai = abertos->getTopo();
+                    candidato = criaCandidato(pai);
+                }
+                if (enche(candidato, pai,abertos) || permutacao2a2(candidato, pai, abertos) ||
+                    esvazia(candidato, pai, abertos)){
+                calculaHeuristica(candidato);
+                    calculaFuncao(candidato);
+                    abertos->empilha(candidato);
+                    pai = abertos->getTopo();
+                    candidato = criaCandidato(pai);
+                }else{
+                    if(ehRaiz(pai)){
+                        patamar_antigo = patamar;
+                        patamar = descartados->getMenorFuncao();
+                        pai->setOperacao(0);
+                    }else{
+                        abertos->desempilha();
+                        pai = abertos->getTopo();
+                    }
+                }
+            }
+        }
     }
-}
 
+    imprimeFuncao(pai);
+    cout << "Valor da custo: " << custo << endl;
+    cout << "Abertos: " << abertos->getTam() << endl;
+    cout << "Fechado: " << descartados->getTam() << endl;
+
+    return sucesso;
+}
 
 
 Estado *Buscas::criaCandidato(Estado *pai) {
@@ -364,8 +435,10 @@ bool Buscas::enche(Estado *candidato, Estado *pai, Pilha *abertos) {
         if (pai->getVolumeJarro(i) < volumes[i]) {
             int aux = candidato->getVolumeJarro(i);
             candidato->setVolumeJarro(i, volumes[i]);
-            if (!abertos->existe(candidato))
+            if (!abertos->existe(candidato)) {
+                candidato->addCusto(pai->getOperacao());
                 return true;
+            }
             candidato->setVolumeJarro(i, aux);
         }
     }
@@ -392,10 +465,14 @@ bool Buscas::permutacao2a2(Estado *candidato, Estado *pai, Pilha *abertos) {
         }
         if (count > (pai->getOperacao() - qntJarros)) {
             pai->addOperacao();
-            if (transferirVolumeAux(candidato, abertos, i - j, j))
+            if (transferirVolumeAux(candidato, abertos, i - j, j)) {
+                candidato->addCusto(pai->getOperacao() + 1);
                 return true;
-            if (transferirVolumeAux(candidato, abertos, j, i - j))
+            }
+            if (transferirVolumeAux(candidato, abertos, j, i - j)) {
+                candidato->addCusto(pai->getOperacao() + 1);
                 return true;
+            }
         }
         count++;
     } while (prev_permutation(v.begin(), v.end()));
@@ -411,8 +488,10 @@ bool Buscas::esvazia(Estado *candidato, Estado *pai, Pilha *abertos) {
         if (pai->getVolumeJarro(i) > 0) {
             int aux = candidato->getVolumeJarro(i);
             candidato->setVolumeJarro(i, 0);
-            if (!abertos->existe(candidato))
+            if (!abertos->existe(candidato)) {
+                candidato->addCusto(pai->getOperacao());
                 return true;
+            }
             candidato->setVolumeJarro(i, aux);
         }
     }
@@ -474,7 +553,7 @@ bool Buscas::permutacao2a2(Estado *candidato, Estado *pai) {
                 return true;
             }
             if (transferirVolumeAux(candidato, pai, j, i - j)) {
-                candidato->addCusto(pai->getOperacao() + 1 );
+                candidato->addCusto(pai->getOperacao() + 1);
                 return true;
             }
         }
@@ -577,4 +656,13 @@ bool Buscas::existeCandidato(Estado *candidato, Estado *pai) {
     return false;
 
 
+}
+
+bool Buscas::ehRaiz(Estado* candidato){
+
+    for (int i = 0; i < qntJarros; i++) {
+        if (candidato->getVolumeJarro(i) != 0)
+            return false;
+    }
+    return true;
 }

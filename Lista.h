@@ -29,7 +29,7 @@ public:
     void insereOrdenadoHeuristica(Estado * filho);
     void insereOrdenadoFuncao(Estado *filho);
     void remove();
-    Estado* getMenorCusto();
+    int getMenorFuncao();
     bool ehVazio();
     void imprime();
     void imprimeEstado(Estado *estado);

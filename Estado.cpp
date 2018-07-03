@@ -87,7 +87,7 @@ void Estado::setHeuristica(int heuristica) {
 }
 
 void Estado::addHeuristica(int heuristica) {
-    Estado::heuristica += heuristica;
+    Estado::heuristica = Estado::heuristica + heuristica;
 }
 
 int Estado::getFuncao()  const  {

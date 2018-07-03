@@ -188,19 +188,17 @@ void Lista::imprime() {
 }
 
 
-Estado *Lista::getMenorCusto() {
+int Lista::getMenorFuncao() {
     No *p = primeiro;
-    No *estadoMenorCusto = primeiro;
-    int menorCusto = primeiro->estadoAtual->getOperacao();
+    int menorCusto = primeiro->estadoAtual->getCusto();
     while (p != NULL) {
         if (p->estadoAtual->getOperacao() < menorCusto) {
             menorCusto = p->estadoAtual->getOperacao();
-            estadoMenorCusto = p;
         }
         p = p->prox;
     }
 
-    return estadoMenorCusto->estadoAtual;
+    return menorCusto;
 
 }
 
@@ -216,3 +214,4 @@ void Lista::remove() {
 int Lista::getTam(){
     return Lista::tam;
 }
+

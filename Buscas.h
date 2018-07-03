@@ -45,6 +45,8 @@ private:
     void calculaFuncao(Estado *candidato);
     void imprimeFuncao(Estado* solucao);
     int calculaAltura(Estado* solucao);
+    bool ehConsiste(Estado* solucao);
+    bool ehRaiz(Estado * candidato);
 
 
 
