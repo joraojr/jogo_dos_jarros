@@ -79,7 +79,7 @@ bool Buscas::backtraking() {
 
     }
     //fechados->imprime();
-    cout <<"Custo" << candidato->getCusto()<<endl;
+    cout <<"Valor da custo: " << candidato->getCusto()<<endl;
     cout << "Abertos: " << abertos->getTam() << endl;
     cout << "Fechado: " << fechados->getTam() << endl;
     return sucesso;
@@ -119,7 +119,7 @@ bool Buscas::profundidade() {
         }
     }
 //    fechados->imprime();
-    cout <<"Custo" << candidato->getCusto()<<endl;
+    cout <<"Valor da custo: " << candidato->getCusto()<<endl;
     cout << "Abertos: " << abertos->getTam() << endl;
     cout << "Fechado: " << fechados->getTam() << endl;
     return sucesso;
@@ -160,7 +160,7 @@ bool Buscas::largura() {
         }
     }
 //    fechados->imprime();
-    cout <<"Custo" << candidato->getCusto()<<endl;
+    cout <<"Valor da custo: " << candidato->getCusto()<<endl;
     cout << "Abertos: " << abertos->getTam() << endl;
     cout << "Fechado: " << fechados->getTam() << endl;
     return sucesso;

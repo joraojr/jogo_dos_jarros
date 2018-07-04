@@ -13,38 +13,62 @@ int main() {
 
     Buscas *b = new Buscas(vol, obj, tam);
     clock_t Ticks[2];
-    cout << "Back" << endl;
-    cout << b->backtraking();
-    cout << endl;
-    cout << "Prof" << endl;
-    cout << b->profundidade();
-    cout << endl;
-    cout << "Larg" << endl;
-    cout << b->largura();
-    cout << endl;
-    cout << "Ordenada" << endl;
-    cout << b->ordenada();
-    cout << endl;
-    cout << "Gulosa" << endl;
-    cout << b->gulosa();
-    cout << endl;
-    cout << "A*" << endl;
-    cout << b->A();
-    cout << endl;
-    cout << "IDA*" << endl;
-    cout << b->IDA();
-    cout<<endl;
-/*
-    cout << "Sucesso: " <<b->ordenada();
-*/
+    cout << "Backtraking" << endl;
     Ticks[0] = clock();
-
-    //    cout << "Sucesso: " <<b->gulosa();
-    //   cout<<b->backtraking()
+    cout <<"Sucesso: "<< b->backtraking();
     Ticks[1] = clock();
-
     double tempo = (Ticks[1] - Ticks[0]) / CLOCKS_PER_SEC;
     cout << endl << "Tempo: " << tempo << " ms";
+    cout << endl<<endl;
+
+    Ticks[0] = clock();
+    cout << "Profundidade" << endl;
+    cout <<"Sucesso: "<<b->profundidade();
+    Ticks[1] = clock();
+    tempo = (Ticks[1] - Ticks[0]) / CLOCKS_PER_SEC;
+    cout << endl << "Tempo: " << tempo << " ms";
+    cout << endl<<endl;
+
+    Ticks[0] = clock();
+    cout << "Largura" << endl;
+    cout <<"Sucesso: "<< b->largura();
+    Ticks[1] = clock();
+    tempo = (Ticks[1] - Ticks[0]) / CLOCKS_PER_SEC;
+    cout << endl << "Tempo: " << tempo << " ms";
+    cout << endl<<endl;
+
+    Ticks[0] = clock();
+    cout << "Ordenada" << endl;
+    cout <<"Sucesso: "<< b->ordenada();
+    Ticks[1] = clock();
+    tempo = (Ticks[1] - Ticks[0]) / CLOCKS_PER_SEC;
+    cout << endl << "Tempo: " << tempo << " ms";
+    cout << endl<<endl;
+
+    Ticks[0] = clock();
+    cout << "Gulosa" << endl;
+    cout <<"Sucesso: "<< b->gulosa();
+    Ticks[1] = clock();
+    tempo = (Ticks[1] - Ticks[0]) / CLOCKS_PER_SEC;
+    cout << endl << "Tempo: " << tempo << " ms";
+    cout << endl<<endl;
+
+    Ticks[0] = clock();
+    cout << "A*" << endl;
+    cout <<"Sucesso: "<< b->A();
+    Ticks[1] = clock();
+    tempo = (Ticks[1] - Ticks[0]) / CLOCKS_PER_SEC;
+    cout << endl << "Tempo: " << tempo << " ms";
+    cout << endl<<endl;
+
+    Ticks[0] = clock();
+    cout << "IDA*" << endl;
+    cout <<"Sucesso: "<< b->IDA();
+    Ticks[1] = clock();
+    tempo = (Ticks[1] - Ticks[0]) / CLOCKS_PER_SEC;
+    cout << endl << "Tempo: " << tempo << " ms";
+    cout << endl;
+
 
 
     return 0;
