@@ -366,8 +366,6 @@ bool Buscas::IDA() {
     abertos->empilha(pai);
     while (!sucesso && !fracasso) {
         candidato = criaCandidato(pai);
-        cout<< pai->getOperacao()<<endl;
-        imprime(pai);
         if (patamar_antigo == patamar) {
             fracasso = true;
         } else {
@@ -381,18 +379,20 @@ bool Buscas::IDA() {
                     pai = abertos->getTopo();
                     candidato = criaCandidato(pai);
                 }
-                if (enche(candidato, pai,abertos) || permutacao2a2(candidato, pai, abertos) ||
-                    esvazia(candidato, pai, abertos)){
-                calculaHeuristica(candidato);
+                if ((enche(candidato, pai,abertos) || permutacao2a2(candidato, pai, abertos) ||
+                    esvazia(candidato, pai, abertos))){
+                    calculaHeuristica(candidato);
                     calculaFuncao(candidato);
                     abertos->empilha(candidato);
                     pai = abertos->getTopo();
-                    candidato = criaCandidato(pai);
+                    cout<<endl;
                 }else{
                     if(ehRaiz(pai)){
                         patamar_antigo = patamar;
-                        patamar = descartados->getMenorFuncao();
+                        if(!descartados->ehVazio())
+                            patamar = descartados->getMenorFuncao();
                         pai->setOperacao(0);
+                        descartados->limpa();
                     }else{
                         abertos->desempilha();
                         pai = abertos->getTopo();
@@ -403,6 +403,7 @@ bool Buscas::IDA() {
     }
 
     imprimeFuncao(pai);
+    cout << "Patamar: "<<patamar<<endl;
     cout << "Valor da custo: " << custo << endl;
     cout << "Abertos: " << abertos->getTam() << endl;
     cout << "Fechado: " << descartados->getTam() << endl;

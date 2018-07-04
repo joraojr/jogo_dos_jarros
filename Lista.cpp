@@ -20,6 +20,20 @@ Lista::~Lista() {
 
 }
 
+void Lista::limpa(){
+    No *p = primeiro;
+
+    while (primeiro != NULL) {
+        primeiro = p->prox;
+        delete p;
+        p = primeiro;
+    }
+
+    primeiro = NULL;
+    tam =0;
+
+}
+
 Estado *Lista::getPrimeiro() {
     if (primeiro != NULL)
         return primeiro->estadoAtual;
@@ -190,10 +204,10 @@ void Lista::imprime() {
 
 int Lista::getMenorFuncao() {
     No *p = primeiro;
-    int menorCusto = primeiro->estadoAtual->getCusto();
+    int menorCusto = primeiro->estadoAtual->getFuncao();
     while (p != NULL) {
         if (p->estadoAtual->getOperacao() < menorCusto) {
-            menorCusto = p->estadoAtual->getOperacao();
+            menorCusto = p->estadoAtual->getFuncao();
         }
         p = p->prox;
     }

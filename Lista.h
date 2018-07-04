@@ -33,6 +33,7 @@ public:
     bool ehVazio();
     void imprime();
     void imprimeEstado(Estado *estado);
+    void limpa();
 };
 
 
