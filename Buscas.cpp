@@ -79,6 +79,7 @@ bool Buscas::backtraking() {
 
     }
     //fechados->imprime();
+    cout <<"Custo" << candidato->getCusto()<<endl;
     cout << "Abertos: " << abertos->getTam() << endl;
     cout << "Fechado: " << fechados->getTam() << endl;
     return sucesso;
@@ -118,6 +119,7 @@ bool Buscas::profundidade() {
         }
     }
 //    fechados->imprime();
+    cout <<"Custo" << candidato->getCusto()<<endl;
     cout << "Abertos: " << abertos->getTam() << endl;
     cout << "Fechado: " << fechados->getTam() << endl;
     return sucesso;
@@ -158,6 +160,7 @@ bool Buscas::largura() {
         }
     }
 //    fechados->imprime();
+    cout <<"Custo" << candidato->getCusto()<<endl;
     cout << "Abertos: " << abertos->getTam() << endl;
     cout << "Fechado: " << fechados->getTam() << endl;
     return sucesso;
@@ -385,7 +388,6 @@ bool Buscas::IDA() {
                     calculaFuncao(candidato);
                     abertos->empilha(candidato);
                     pai = abertos->getTopo();
-                    cout<<endl;
                 }else{
                     if(ehRaiz(pai)){
                         patamar_antigo = patamar;
@@ -467,7 +469,7 @@ bool Buscas::permutacao2a2(Estado *candidato, Estado *pai, Pilha *abertos) {
         if (count > (pai->getOperacao() - qntJarros)) {
             pai->addOperacao();
             if (transferirVolumeAux(candidato, abertos, i - j, j)) {
-                candidato->addCusto(pai->getOperacao() + 1);
+                candidato->addCusto(pai->getOperacao());
                 return true;
             }
             if (transferirVolumeAux(candidato, abertos, j, i - j)) {
