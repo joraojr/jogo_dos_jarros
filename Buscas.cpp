@@ -266,7 +266,7 @@ bool Buscas::gulosa() {
         fechados->insere(pai);
         if (ehSolucao(candidato)) {
             sucesso = true;
-            cout << "Altura:" << calculaAltura(pai) << endl;
+            cout << "Altura:" << abertos->getTam() << endl;
             custo = candidato->getCusto();
         } else {
             while (pai->getOperacao() < qntOperacoes) {
@@ -373,6 +373,7 @@ bool Buscas::IDA() {
             fracasso = true;
         } else {
             if (ehSolucao(pai) && pai->getFuncao() <= patamar) {
+                cout << "Altura:" << abertos->getTam() -1 << endl;
                 custo = pai->getCusto();
                 sucesso = true;
             } else {
