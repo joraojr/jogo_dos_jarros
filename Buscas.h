@@ -19,7 +19,6 @@ using namespace std;
 
 
 class Buscas {
-
 private:
     int qntJarros;
     int * volumes;
@@ -37,9 +36,7 @@ private:
     bool esvazia(Estado *candidato, Estado* pai);
     bool existeCandidato(Estado *candidato,Estado * pai);
     Estado* criaCandidato(Estado* pai);
-    void criaCandidatos(Estado ** candidatos);
     bool ehSolucao(Estado *candidato);
-    void imprime(Estado* pai);
     void calculaHeuristica(Estado * candidato,int i);
     void imprimeHeuristica(Estado* solucao);
     void calculaFuncao(Estado *candidato);
@@ -47,8 +44,6 @@ private:
     int calculaAltura(Estado* solucao);
     bool ehConsiste(Estado* solucao);
     bool ehRaiz(Estado * candidato);
-
-
 
 public:
     Buscas(int * volumes,int* objetivo, int tam);

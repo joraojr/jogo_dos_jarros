@@ -242,36 +242,6 @@ void alterarValores(int *tam,int *volume,int *objetivo)
 
 }
 int main() {
-    //Estado *estado = new Estado(3);
-
-/*    int tam =3;
-    int v = 0;
-    int tempoMedio=0;
-    int vol[tam] = {3,7,2};//9,7,10
-    int obj[tam] = {0,5,1};//7,8,9
-    Buscas *b = new Buscas(vol, obj, tam);
-    while(v < 10)
-    {
-        //gulosa,IDA,A
-        clock_t Ticks[2];
-        Ticks[0] = clock();
-        //cout << b->backtraking()<<endl;
-        //cout << b->profundidade()<<endl;
-        //cout << b->largura()<<endl;
-        //cout << b->ordenada()<<endl;
-        //cout << b->gulosa()<<endl;
-        //cout << b->A()<<endl;
-        cout << b->IDA(1);
-        Ticks[1] = clock();
-        double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
-        v++;
-        tempoMedio = tempoMedio + Tempo;
-    }
-    cout << "Tempo de execução: " << tempoMedio/10 <<"ms"<< endl;
-    delete b;*/
-
-
-
 
 
     int tam, sair = 0, esco, euristica;

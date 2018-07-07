@@ -34,7 +34,6 @@ public:
     int getFuncao() const ;
     void setFuncao(int funcao);
 
-
 private:
     int *jarros;
     int qntJarros;
