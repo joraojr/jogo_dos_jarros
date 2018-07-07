@@ -40,7 +40,7 @@ private:
     void criaCandidatos(Estado ** candidatos);
     bool ehSolucao(Estado *candidato);
     void imprime(Estado* pai);
-    void calculaHeuristica(Estado * candidato);
+    void calculaHeuristica(Estado * candidato,int i);
     void imprimeHeuristica(Estado* solucao);
     void calculaFuncao(Estado *candidato);
     void imprimeFuncao(Estado* solucao);
@@ -57,12 +57,12 @@ public:
     bool profundidade();
     bool largura();
     bool ordenada();
-    bool gulosa();
-    bool A();
-    bool IDA();
+    bool gulosa(int i);
+    bool A(int i);
+    bool IDA(int i);
 
 
-    };
+};
 
 
 

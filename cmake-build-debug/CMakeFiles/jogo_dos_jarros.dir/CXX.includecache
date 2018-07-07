@@ -67,6 +67,8 @@ Lista.h
 /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/main.cpp
 iostream
 -
+time.h
+-
 Estado.h
 /home/joraojr/Documentos/jorao/ufjf/IA/jogo_dos_jarros/Estado.h
 Buscas.h

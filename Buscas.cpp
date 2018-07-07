@@ -218,25 +218,30 @@ void Buscas::imprimeHeuristica(Estado *solucao) {
     cout << "Valor da Heuristica: " << heuristica << endl;
 }
 
-void Buscas::calculaHeuristica(Estado *candidato) {
+void Buscas::calculaHeuristica(Estado *candidato, int i) {
 
-/*
-     //HEURISTICA 1
-    for(int i = 0 ;i <qntJarros; i ++){
-        candidato->addHeuristica(abs(candidato->getVolumeJarro(i) - objetivo[i]));
-    }
-*/
 
-    //HEURISTICA 2
-    for (int i = 0; i < qntJarros; i++){
-        if (candidato->getVolumeJarro(i) > objetivo[i]) {
-            candidato->addHeuristica(2);
+    //HEURISTICA 1
+
+    if(i==1)
+    {
+        for(int i = 0 ;i <qntJarros; i ++){
+            candidato->addHeuristica(abs(candidato->getVolumeJarro(i) - objetivo[i]));
         }
-        else if (candidato->getVolumeJarro(i) < objetivo[i]) {
-            candidato->addHeuristica(1);
-        }
+
     }
 
+    if(i == 2){
+        //HEURISTICA 2
+        for (int i = 0; i < qntJarros; i++){
+            if (candidato->getVolumeJarro(i) > objetivo[i]) {
+                candidato->addHeuristica(2);
+            }
+            else if (candidato->getVolumeJarro(i) < objetivo[i]) {
+                candidato->addHeuristica(1);
+            }
+        }
+    }
 
 /*
     cout << "VALOR:"<<candidato->getHeuristica()<<endl;
@@ -250,13 +255,13 @@ bool Buscas::ehConsiste(Estado *candidato) {
     return false;
 }
 
-bool Buscas::gulosa() {
+bool Buscas::gulosa(int i) {
     int custo = -1;
     bool sucesso = false, consistente = true;
     Lista *abertos = new Lista;
     Lista *fechados = new Lista;
     Estado *pai = new Estado(qntJarros);
-    calculaHeuristica(pai);
+    calculaHeuristica(pai,i);
     Estado *candidato;
     abertos->insereOrdenadoHeuristica(pai);
     while (!sucesso && !abertos->ehVazio()) {
@@ -273,7 +278,7 @@ bool Buscas::gulosa() {
                 if (enche(candidato, pai) || permutacao2a2(candidato, pai) ||
                     esvazia(candidato, pai)) {
                     candidato->setPai(pai);
-                    calculaHeuristica(candidato);
+                    calculaHeuristica(candidato,i);
                     if (consistente) {
                         consistente = ehConsiste(candidato);
                     }
@@ -311,13 +316,13 @@ void Buscas::calculaFuncao(Estado *candidato) {
     candidato->setFuncao(candidato->getCusto() + candidato->getHeuristica());
 }
 
-bool Buscas::A() {
+bool Buscas::A(int i) {
     int custo = -1;
     bool sucesso = false, consistente = true;
     Lista *abertos = new Lista;
     Lista *fechados = new Lista;
     Estado *pai = new Estado(qntJarros);
-    calculaHeuristica(pai);
+    calculaHeuristica(pai,i);
     Estado *candidato;
     abertos->insereOrdenadoFuncao(pai);
     while (!sucesso && !abertos->ehVazio()) {
@@ -334,7 +339,7 @@ bool Buscas::A() {
                 if (enche(candidato, pai) || permutacao2a2(candidato, pai) ||
                     esvazia(candidato, pai)) {
                     candidato->setPai(pai);
-                    calculaHeuristica(candidato);
+                    calculaHeuristica(candidato,i);
                     calculaFuncao(candidato);
                     if (consistente) {
                         consistente = ehConsiste(candidato);
@@ -356,13 +361,13 @@ bool Buscas::A() {
 }
 
 
-bool Buscas::IDA() {
+bool Buscas::IDA(int i) {
     int custo = -1;
     bool sucesso = false, fracasso = false;
     Pilha *abertos = new Pilha;
     Lista *descartados = new Lista;
     Estado *pai = new Estado(qntJarros);
-    calculaHeuristica(pai);
+    calculaHeuristica(pai,i);
     calculaFuncao(pai);
     int patamar = pai->getFuncao(), patamar_antigo = -1;
     Estado *candidato;
@@ -384,8 +389,8 @@ bool Buscas::IDA() {
                     candidato = criaCandidato(pai);
                 }
                 if ((enche(candidato, pai,abertos) || permutacao2a2(candidato, pai, abertos) ||
-                    esvazia(candidato, pai, abertos))){
-                    calculaHeuristica(candidato);
+                     esvazia(candidato, pai, abertos))){
+                    calculaHeuristica(candidato,i);
                     calculaFuncao(candidato);
                     abertos->empilha(candidato);
                     pai = abertos->getTopo();
